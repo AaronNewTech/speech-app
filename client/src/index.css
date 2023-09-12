@@ -5,3 +5,80 @@
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
+.form {
+  font-weight: bold;
+}
+
+.navbarStyles {
+  display: flex; /* Use flexbox to make the links stretch horizontally */
+  justify-content: space-between; /* Distribute the links evenly */
+  background-color: #d75a2d;
+  padding: 10px; /* Add some padding to the navbar */
+}
+
+.navbarStyles a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+  /* background-color: rgba(255, 255, 255, 0.6); */
+  /* padding-left: 20px; */
+}
+
+.navbarStyles a:hover {
+  color: black;
+  font-weight: bold;
+}
+
+.navbarStyles a:visited {
+  color: black;
+  font-weight: bold;
+}
+
+body {
+  display: relative;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: "courier new", monospace;
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* background-image: url("https://assets.wfcdn.com/im/22314156/compr-r85/1089/108948385/conner-education-26-piece-wall-decal.jpg"); */
+  background-size: cover;
+  background-position: center top;
+}
+
+/* Default styles for larger screens */
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--link);
+  padding: 20px;
+  width: 70%; /* Set initial width */
+  margin: 0 auto; /* Center align the container horizontally */
+}
+
+.flex-container > * {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  margin: 10px;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .flex-container {
+    width: 90%; /* Adjust width for smaller screens */
+    padding: 10px; /* Reduce padding for smaller screens */
+  }
+
+  .flex-container > * {
+    padding: 5px; /* Reduce padding for smaller screens */
+    margin: 5px; /* Reduce margin for smaller screens */
+  }
+}
