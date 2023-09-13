@@ -7,24 +7,19 @@ from sqlalchemy import MetaData
 from config import db
 
 
-class Lesson(db.Model, SerializerMixin):
-    __tablename__ = 'lessons'
+class Sound(db.Model, SerializerMixin):
+    __tablename__ = 'sounds'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
     sound = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     # relationships
-    lesson_scores = db.relationship('Score', cascade='all, delete', backref='lesson')
+    sound_scores = db.relationship(
+        'Score', cascade='all, delete', backref='Sound')
 
     # validations
-    @validates('name')
-    def validate_name(self, key, name):
-        if not name or len(name) <= 0:
-            raise ValueError('Invalid name provided')
-        return name
 
     @validates('sound')
     def validate_sound(self, key, sound):
@@ -33,7 +28,7 @@ class Lesson(db.Model, SerializerMixin):
         return sound
 
     def __repr__(self):
-        return f'<Lesson {self.id}>'
+        return f'<Sound {self.id}>'
 
 
 class User(db.Model, SerializerMixin):
@@ -48,11 +43,18 @@ class User(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     # relationships
-    # vendor_sweets = db.relationship('VendorSweet', cascade='all, delete', backref='sweet')
-    user_scores = db.relationship('Score', cascade='all, delete', backref='user')
+    user_scores = db.relationship(
+        'Score', cascade='all, delete', backref='user')
 
     # serialize rules
 
+    # validations
+
+    @validates('email')
+    def validate_email(self, key, email):
+        if not email or len(email) <= 0 or not str(email):
+            raise ValueError('Invalid email address provided')
+        return email
 
     def __repr__(self):
         return f'<User {self.id}>'
@@ -68,20 +70,19 @@ class Score(db.Model, SerializerMixin):
 
     # relationships
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    lesson_id = db.Column(db.Integer, db.ForeignKey("lessons.id"))
+    sound_id = db.Column(db.Integer, db.ForeignKey("sounds.id"))
 
     # serialize rules
     # serialize_rules = ('-drink.drink_ingredient_associations', '-ingredient.drink_ingredient_associations',)
 
     # validations
 
-
     def __repr__(self):
         return f'<Score {self.id}>'
-    
 
-class SavedLesson(db.Model, SerializerMixin):
-    __tablename__ = 'saved_lessons'
+
+class SavedSound(db.Model, SerializerMixin):
+    __tablename__ = 'saved_sounds'
 
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
@@ -89,14 +90,12 @@ class SavedLesson(db.Model, SerializerMixin):
 
     # relationships
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    lesson_id = db.Column(db.Integer, db.ForeignKey("lessons.id"))
+    sound_id = db.Column(db.Integer, db.ForeignKey("sounds.id"))
 
     # serialize rules
     # serialize_rules = ('-drink.drink_ingredient_associations', '-ingredient.drink_ingredient_associations',)
 
-
     # validations
 
-
     def __repr__(self):
-        return f'<SavedLesson {self.id}>'
+        return f'<Savedsound {self.id}>'

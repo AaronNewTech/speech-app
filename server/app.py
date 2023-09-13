@@ -38,7 +38,7 @@ class Register(Resource):
 
             db.session.add(user)
             db.session.commit()
-            return f'Welcome {email}'
+            return f'Welcome {email}', 201
         except Exception as e:
             # Log the error for debugging
             print(f"Error: {str(e)}")
@@ -55,7 +55,7 @@ class UserById(Resource):
             return make_response({'error': 'User is not found'}, 404)
         db.session.delete(user)
         db.session.commit()
-        return make_response('', 204)
+        return make_response('', 201)
 
 
 api.add_resource(UserById, '/user/<int:id>')
@@ -73,7 +73,7 @@ class Login(Resource):
         if not user:
             return make_response(jsonify(success=False, message='User Not Found!'), 404)
         if bcrypt.checkpw(password.encode('utf-8'), user.hash):
-            return make_response(jsonify(success=True, message=f'Welcome back {email}'), 200)
+            return make_response(jsonify(success=True, message=f'Welcome back {email}'), 201)
         else:
             return make_response(jsonify(success=False, message='Wrong Password!'), 200)
 

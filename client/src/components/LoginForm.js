@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "./NavBar";
 
-function LoginForm({ setLoggedIn, loggedIn }) {
+function LoginForm({ loggedIn, setLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -33,6 +33,8 @@ function LoginForm({ setLoggedIn, loggedIn }) {
           setEmail(""); // Clear email field
           setPassword(""); // Clear password field
           setError(""); // Clear error
+
+          console.log("user logged in");
         } else {
           // Login failed, display an error message
           setError("Invalid email or password.");
@@ -52,6 +54,8 @@ function LoginForm({ setLoggedIn, loggedIn }) {
     localStorage.removeItem("isLoggedIn");
     setLoggedIn(false);
   };
+
+  console.log(loggedIn);
 
   return (
     <div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import NavBar from "./NavBar";
 
-function CreateUser() {
+function CreateUser({ loggedIn, setLoggedIn }) {
   const [formErrors, setFormErrors] = useState([]);
   const [successMessage, setSuccessMessage] = useState(null);
 
