@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "./NavBar";
+import { useAuth } from "./UseContext"; // Import the useAuth hook
 
-function LoginForm({ loggedIn, setLoggedIn }) {
+function LoginForm() {
+  const { user, login, logout } = useAuth(); // Use the useAuth hook to access user data
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -10,9 +13,9 @@ function LoginForm({ loggedIn, setLoggedIn }) {
     // Check if the user is logged in on component mount
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     if (isLoggedIn) {
-      setLoggedIn(true);
+      login(true); // Update the user state using the login function from useAuth
     }
-  }, [setLoggedIn]);
+  }, [login]);
 
   const handleLogin = async () => {
     try {
@@ -28,13 +31,13 @@ function LoginForm({ loggedIn, setLoggedIn }) {
         const data = await response.json();
         if (data.success) {
           // Login successful, update your app's state to indicate the user is logged in
-          setLoggedIn(true);
+          login(true); // Update the user state using the login function from useAuth
           localStorage.setItem("isLoggedIn", "true"); // Store login status
           setEmail(""); // Clear email field
           setPassword(""); // Clear password field
           setError(""); // Clear error
 
-          console.log("user logged in");
+          // console.log("user logged in");
         } else {
           // Login failed, display an error message
           setError("Invalid email or password.");
@@ -52,21 +55,22 @@ function LoginForm({ loggedIn, setLoggedIn }) {
   const handleLogout = () => {
     // Logout the user by removing their login status from localStorage
     localStorage.removeItem("isLoggedIn");
-    setLoggedIn(false);
+    logout(); // Update the user state using the logout function from useAuth
   };
 
-  console.log(loggedIn);
-
+  console.log(user);
   return (
     <div>
       <NavBar />
-      {loggedIn ? (
+      {user ? ( // Check the user state instead of loggedIn
         <>
           <p>Welcome back, {email}! You are now logged in.</p>
-          <button onClick={handleLogout}>Logout</button>
+          <button id="logout-button" onClick={handleLogout}>
+            Logout
+          </button>
         </>
       ) : (
-        <form>
+        <form className="login-form">
           <div>
             <label htmlFor="email">Email: </label>
             <input
@@ -85,12 +89,18 @@ function LoginForm({ loggedIn, setLoggedIn }) {
               onChange={(event) => setPassword(event.target.value)}
             />
           </div>
-          <button type="button" onClick={handleLogin}>
+          <button id="button" type="button" onClick={handleLogin}>
             Submit
           </button>
         </form>
       )}
       {error && <p style={{ color: "red" }}>{error}</p>}
+      <div id="create-account-container">
+        <p id="create-account-text">Not Registered?</p>
+        <a id="create-account-link" href="http://localhost:3000/create_account">
+          Create an account
+        </a>
+      </div>
     </div>
   );
 }

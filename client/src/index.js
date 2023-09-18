@@ -12,11 +12,11 @@ root.render(<App />);
 
 
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter>
     {/* <LoginProvider> */}
       <App />
     {/* </LoginProvider > */}
     </BrowserRouter>
-  </React.StrictMode>
+  // </React.StrictMode>
 );

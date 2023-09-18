@@ -1,7 +1,7 @@
 :root {
   --bg: #282c34;
   --header: #fff;
-  --link: #61dafb;
+  /* --link: #61dafb; */
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
@@ -10,14 +10,15 @@
 }
 
 .navbarStyles {
-  display: flex; /* Use flexbox to make the links stretch horizontally */
-  justify-content: space-between; /* Distribute the links evenly */
+  color: white;
+  display: flex;
+  justify-content: space-between;
   background-color: #d75a2d;
-  padding: 10px; /* Add some padding to the navbar */
+  padding: 10px;
 }
 
 .navbarStyles a {
-  color: black;
+  color: white;
   text-decoration: none;
   font-weight: bold;
   font-size: 20px;
@@ -26,12 +27,12 @@
 }
 
 .navbarStyles a:hover {
-  color: black;
+  color: white;
   font-weight: bold;
 }
 
 .navbarStyles a:visited {
-  color: black;
+  color: white;
   font-weight: bold;
 }
 
@@ -48,15 +49,25 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background-image: url("https://assets.wfcdn.com/im/22314156/compr-r85/1089/108948385/conner-education-26-piece-wall-decal.jpg"); */
+  background-color: rgba(244, 140, 12, 0.8);
   background-size: cover;
   background-position: center top;
 }
 
 .instructions {
   padding-left: 40px;
+  font-weight: normal;
 }
 
-/* Default styles for larger screens */
+.voice-test {
+  padding-top: 50px;
+  text-align: center;
+}
+
+#microphone {
+  font-size: 20px;
+}
+
 .flex-container {
   display: flex;
   flex-direction: column;
@@ -64,8 +75,8 @@ body {
   align-items: center;
   border: 2px solid var(--link);
   padding: 20px;
-  width: 70%; /* Set initial width */
-  margin: 0 auto; /* Center align the container horizontally */
+  width: 70%;
+  margin: 0 auto;
 }
 
 .flex-container > * {
@@ -74,15 +85,281 @@ body {
   margin: 10px;
 }
 
-/* Media query for smaller screens */
 @media (max-width: 768px) {
   .flex-container {
-    width: 90%; /* Adjust width for smaller screens */
-    padding: 10px; /* Reduce padding for smaller screens */
+    width: 90%;
+    padding: 10px;
   }
 
   .flex-container > * {
-    padding: 5px; /* Reduce padding for smaller screens */
-    margin: 5px; /* Reduce margin for smaller screens */
+    padding: 5px;
+    margin: 5px;
   }
+}
+
+#flash-card-library {
+  padding-top: 30px;
+  text-align: center;
+}
+
+.cards-container {
+  display: block;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* .cards-container > * {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  margin: 10px;
+}  */
+
+.login-form {
+  /* font-weight: bold; */
+  display: flex;
+  align-items: center;
+  padding-left: 50px;
+  padding-top: 30px;
+}
+
+.login-form #email {
+  margin-left: 20px;
+  margin-right: 25px;
+  margin-top: 25px;
+}
+
+.login-form #password {
+  margin-left: 20px;
+  margin-top: 25px;
+}
+
+.login-form #button {
+  margin-left: 25px;
+  margin-top: 25px;
+}
+
+#logout-button {
+  margin-left: 25px;
+  margin-top: 10px;
+}
+
+#create-account-container {
+  display: flex;
+}
+
+#create-account-text {
+  margin-left: 200px;
+  margin-top: 20px;
+  padding-right: 15px;
+}
+
+#create-account-link {
+  color: blue;
+  margin-top: 20px;
+}
+
+#email-text {
+  margin-left: 50px;
+  margin-top: 30px;
+}
+
+#login-link-container {
+  display: flex;
+}
+
+#login-link-text {
+  margin-left: 200px;
+  margin-top: 20px;
+  padding-right: 15px;
+}
+
+#login-link {
+  color: blue;
+  margin-top: 20px;
+}
+
+#email-text {
+  margin-left: 50px;
+  margin-top: 30px;
+}
+
+.create-account-form {
+  align-items: center;
+  padding-left: 50px;
+}
+
+.create-account-form #email {
+  margin-left: 20px;
+  margin-right: 25px;
+  margin-top: 25px;
+}
+
+.create-account-form #password {
+  margin-left: 20px;
+  margin-top: 25px;
+}
+
+.create-account-form #button {
+  margin-left: 25px;
+  margin-top: 25px;
+}
+
+.new-sound-form {
+  /* font-weight: bold; */
+  align-items: center;
+  padding-left: 50px;
+  padding-top: 30px;
+}
+
+.new-sound-form #sound {
+  margin-left: 20px;
+  margin-right: 25px;
+  margin-top: 25px;
+}
+
+.new-sound-form #image {
+  margin-left: 20px;
+  margin-top: 25px;
+}
+
+.new-sound-form #button {
+  margin-left: 25px;
+  margin-top: 25px;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.rps-body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f6f7fb;
+  background-color: rgba(244, 140, 12, 0.8);
+}
+
+::selection {
+  color: #fff;
+  background-color: #7d2ae8;
+}
+
+.container {
+  padding: 2rem 7rem;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.result_images {
+  display: flex;
+  column-gap: 7rem;
+}
+
+.container.start .user_result {
+  transform-origin: left;
+  animation: userShake 0.7s ease infinite;
+}
+
+@keyframes userShake {
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+.container.start .cpu_result {
+  transform-origin: right;
+  animation: cpuShake 0.7s ease infinite;
+}
+
+@keyframes cpuShake {
+  50% {
+    transform: rotate(-10deg);
+  }
+}
+
+.result_images {
+  display: flex;
+  column-gap: 7rem;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.result_images img {
+  width: 100px;
+}
+
+.user_result img {
+  transform: rotate(90deg);
+}
+
+.cpu_result img {
+  transform: rotate(-90deg) rotateY(180deg);
+}
+
+.result {
+  text-align: center;
+  font-size: 2rem;
+  color: #7d2ae8;
+  margin-top: 1.5rem;
+}
+
+.option_image img {
+  width: 50px;
+}
+
+.option_images {
+  display: flex;
+  align-items: center;
+  margin-top: 2.5rem;
+  justify-content: space-between;
+}
+
+.container.start .option_images {
+  pointer-events: none;
+}
+
+.option_image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.option_image:hover {
+  opacity: 1;
+}
+
+.option_image.active {
+  opacity: 1;
+}
+
+.option_image img {
+  pointer-events: none;
+}
+
+.option_image p {
+  color: #7d2ae8;
+  font-size: 1.235rem;
+  margin-top: 1rem;
+  pointer-events: none;
+}
+
+.sound-image-container img {
+  /* position: absolute; */
+  width: 50%;
+  height: 50%;
+  /* object-fit: cover; */
+  top: 0;
+  left: 0;
 }

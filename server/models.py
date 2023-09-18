@@ -12,12 +12,16 @@ class Sound(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     sound = db.Column(db.String)
+    image = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     # relationships
     sound_scores = db.relationship(
         'Score', cascade='all, delete', backref='Sound')
+
+    # serialize rules
+    serialize_rules = ('-sound_scores.user_scores', '-sound_scores.sound.sound_scores',)
 
     # validations
 
@@ -47,6 +51,7 @@ class User(db.Model, SerializerMixin):
         'Score', cascade='all, delete', backref='user')
 
     # serialize rules
+    serialize_rules = ('-user_scores.sound_scores.user_scores', '-user_scores.sound.sound_scores',)
 
     # validations
 
@@ -74,6 +79,7 @@ class Score(db.Model, SerializerMixin):
 
     # serialize rules
     # serialize_rules = ('-drink.drink_ingredient_associations', '-ingredient.drink_ingredient_associations',)
+    serialize_rules = ('-user.user_scores', '-sound.sound_scores',)
 
     # validations
 

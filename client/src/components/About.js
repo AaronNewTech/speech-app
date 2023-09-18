@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
 
-function Home({ loggedIn, setLoggedIn}) {
+function About() {
   return (
     <div>
       <NavBar  />
@@ -31,4 +31,4 @@ function Home({ loggedIn, setLoggedIn}) {
   );
 }
 
-export default Home;
+export default About;

@@ -43,8 +43,8 @@ function CreateUser({ loggedIn, setLoggedIn }) {
   return (
     <div>
       <NavBar />
-
-      <form onSubmit={formik.handleSubmit} className="form">
+      <p id="email-text">Sign up with an email address</p>
+      <form onSubmit={formik.handleSubmit} className="create-account-form">
         <label htmlFor="email">Email: </label>
         <input
           id="email"
@@ -65,10 +65,18 @@ function CreateUser({ loggedIn, setLoggedIn }) {
         {formErrors.length > 0 && (
           <p style={{ color: "red" }}>{formErrors.join(", ")}</p>
         )}
-        <button type="submit">Add User</button>
+        <button id="button" type="submit">
+          Add User
+        </button>
       </form>
       {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
       <form onSubmit={formik.handleSubmit} className="form"></form>
+      <div id="login-link-container">
+        <p id="login-link-text">Already have an account?</p>
+        <a id="login-link" href="http://localhost:3000/login">
+          Login in
+        </a>
+      </div>
     </div>
   );
 }

@@ -10,7 +10,7 @@ import bcrypt
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import db, User
+from models import db, User, Sound
 
 
 # Views go here!
@@ -80,6 +80,94 @@ class Login(Resource):
 
 api.add_resource(Login, '/login')
 
+
+class Sounds(Resource):
+    def get(self):
+        sounds = [sound.to_dict() for sound in Sound.query.all()]
+        return make_response(sounds, 200)
+
+
+api.add_resource(Sounds, '/sounds')
+
+
+class CreatedSounds(Resource):
+    def get(self):
+        min_id = request.args.get('id_gte', type=int, default=27)
+        filtered_sounds = [sound.to_dict()
+                           for sound in Sound.query.filter(Sound.id >= min_id).all()]
+        return make_response(filtered_sounds, 200)
+
+
+api.add_resource(CreatedSounds, '/created_sounds')
+
+
+class CreateSound(Resource):
+    def post(self):
+        data = request.get_json()
+
+        sound = Sound()
+        sound_data = {
+            "sound": data["sound"],
+            "image": data.get("image", ""),
+        }
+
+        try:
+            for attr, value in sound_data.items():
+                setattr(sound, attr, value)
+            db.session.add(sound)
+            db.session.flush()
+
+            db.session.commit()
+
+            return make_response(sound.to_dict(), 201)
+        except ValueError:
+            db.session.rollback()
+            return make_response({"errors": ["validation errors"]}, 400)
+
+
+api.add_resource(CreateSound, '/create_card')
+
+
+class SoundsById(Resource):
+    def get(self, id):
+        sound = Sound.query.filter(Sound.id == id).first()
+        if not sound:
+            return make_response({
+                "error": "Sound not found"
+            }, 404)
+        return make_response(sound.to_dict(), 200)
+
+    def delete(self, id):
+        sound = Sound.query.filter(Sound.id == id).one_or_none()
+        if sound is None:
+            return make_response({'error': 'Sound is not found'}, 404)
+        db.session.delete(sound)
+        db.session.commit()
+        return make_response('', 204)
+
+    def patch(self, id):
+        sound = Sound.query.filter(Sound.id == id).first()
+        if not sound:
+            return make_response({"error": "Sound not found"}, 404)
+
+        data = request.get_json()
+
+        try:
+            # Update the attributes of the Sound based on incoming data
+            for attr, value in data.items():
+                setattr(sound, attr, value)
+
+            # Update the associations between the Sound and ingredients
+
+            db.session.commit()
+
+            return make_response(sound.to_dict(), 202)
+
+        except ValueError:
+            return make_response({"errors": ["validation errors"]}, 400)
+
+
+api.add_resource(SoundsById, '/sounds/<int:id>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
