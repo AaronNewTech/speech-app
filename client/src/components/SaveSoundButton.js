@@ -1,31 +1,46 @@
 import React, { useState, useEffect } from "react";
-
+import { useAuth } from "./UseContext";
 function SaveSoundButton({ soundId, email }) {
+  const { user } = useAuth();
   const [userSavedSounds, setUserSavedSounds] = useState([]);
 
   // Load favorited sounds from localStorage on component mount
   useEffect(() => {
-    const savedSoundsFromLocalStorage =
-      JSON.parse(localStorage.getItem("userSavedSounds")) || [];
-    setUserSavedSounds(savedSoundsFromLocalStorage);
+    fetchUserSavedSounds()
   }, []);
 
   // Update localStorage whenever userSavedSounds changes
-  useEffect(() => {
-    localStorage.setItem("userSavedSounds", JSON.stringify(userSavedSounds));
-  }, [userSavedSounds]);
+  // useEffect(() => {
+  //   localStorage.setItem("userSavedSounds", JSON.stringify(userSavedSounds));
+  // }, [userSavedSounds]);
 
+  const fetchUserSavedSounds = async () => {
+    try {
+      const response = await fetch("/user_saved_sounds");
+
+      if (response.ok) {
+        const userSoundData = await response.json();
+        // await initPlayText(randomSoundData.sound);
+        let sounds = userSoundData
+        console.log(userSoundData);
+        setUserSavedSounds(sounds)
+        
+      }
+    } catch (error) {
+      console.error("An error occurred while fetching random score:", error);
+    }
+  };
   // useEffect(() => {
   //   console.log('userSavedSounds updated:', userSavedSounds);
   // }, [userSavedSounds]);
-
+  console.log(userSavedSounds);
   const isSoundSaved = userSavedSounds.includes(soundId);
 
   const handleFavoriteClick = async () => {
     try {
       if (isSoundSaved) {
         // If already favorited, send a DELETE request to remove it from favorites on the server
-        const response = await fetch(`/save_sounds/${soundId}`, {
+        const response = await fetch(`/user_saved_sounds/${soundId}`, {
           method: "DELETE",
         });
         if (response.ok) {
@@ -63,9 +78,11 @@ function SaveSoundButton({ soundId, email }) {
   // console.log(soundId);
   // console.log(userSavedSounds);
   return (
-    <button onClick={handleFavoriteClick}>
+    // {user ? <div id="score">Score: {score}</div> : <div></div>}
+    <div>{user ?  <button onClick={handleFavoriteClick}>
       {isSoundSaved ? "Unfavorite" : "Favorite"}
-    </button>
+    </button> : <div></div>}</div>
+    
   );
 }
 

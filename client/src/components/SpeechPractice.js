@@ -8,6 +8,7 @@ import FlashCard from "./FlashCard";
 import { useNavigate } from "react-router-dom";
 
 const SpeechPractice = ({ email, setEmail }) => {
+  const { user } = useAuth();
   const [randomSound, setRandomSound] = useState(null);
   const [loading, setLoading] = useState(true);
   const [hasSpokenGreatJob, setHasSpokenGreatJob] = useState(false);
@@ -19,12 +20,31 @@ const SpeechPractice = ({ email, setEmail }) => {
 
   useEffect(() => {
     fetchRandomSound();
+    if (user) {
+      fetchUserScore();
+    }
   }, []);
+
+  const fetchUserScore = async () => {
+    try {
+      const response = await fetch("/user_score");
+
+      if (response.ok) {
+        const userScoreData = await response.json();
+        // await initPlayText(randomSoundData.sound);
+        let score = userScoreData.score;
+        setScore(score);
+        console.log(userScoreData.score);
+      }
+    } catch (error) {
+      console.error("An error occurred while fetching random score:", error);
+    }
+  };
 
   const fetchRandomSound = async () => {
     try {
-      const randomSoundId = 1;
-      // Math.floor(Math.random() * (maxSoundId - minSoundId + 1)) + minSoundId;
+      const randomSoundId =
+        Math.floor(Math.random() * (maxSoundId - minSoundId + 1)) + minSoundId;
 
       const response = await fetch(`/sounds/${randomSoundId}`);
 
@@ -127,7 +147,6 @@ const SpeechPractice = ({ email, setEmail }) => {
   if (transcript.toLowerCase()) {
     if (transcript.toLowerCase() === randomSound.sound) {
       result = "Correct";
-      
     } else if (transcript.toLowerCase() !== randomSound.sound) {
       result = "Incorrect, try again";
     }
@@ -178,7 +197,7 @@ const SpeechPractice = ({ email, setEmail }) => {
 
   return (
     <div className="voice-test">
-      <div id="score">Score: {score}</div>
+      {user ? <div id="score">Score: {score}</div> : <div></div>}
       <p id="microphone">Microphone: {listening ? "on" : "off"}</p>
       <button onClick={handleClick}>Start</button>
       <button onClick={() => SpeechRecognition.stopListening()}>Stop</button>

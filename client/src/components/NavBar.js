@@ -30,7 +30,7 @@ function NavBar() {
         </li> */}
         {user ? (
           <li>
-            <NavLink to="/saved-cards"> Saved Cards </NavLink>
+            <NavLink to="/favorite-cards"> Saved Cards </NavLink>
           </li>
         ) : (
           <></>

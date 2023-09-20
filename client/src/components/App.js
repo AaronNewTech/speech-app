@@ -1,3 +1,4 @@
+// npm start --prefix client
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
@@ -42,7 +43,7 @@ function App() {
           {/* <Route exact path="/snake_game" element={<SnakeGame loggedIn={loggedIn} setLoggedIn={setLoggedIn} score={score} setscore={setScore} />} />
         <Route exact path="/tic_tac_toe_game" element={<TicTacToe loggedIn={loggedIn} setLoggedIn={setLoggedIn} score={score} setScore={setscore} />} /> */}
 
-          <Route exact path="/saved-cards" element={<SavedCards />} />
+          <Route exact path="/favorite-cards" element={<SavedCards />} />
           <Route
             exact
             path="/speech-practice"

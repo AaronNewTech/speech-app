@@ -102,8 +102,8 @@ class Logout(Resource):
         # Redirect to the login page or another page after logout
         return redirect(url_for('login'))
 
-api.add_resource(Logout, '/logout')
 
+api.add_resource(Logout, '/logout')
 
 
 class Sounds(Resource):
@@ -252,18 +252,39 @@ class SaveSoundsById(Resource):
 
 api.add_resource(SaveSoundsById, '/save_sounds/<int:id>')
 
+
 class UserSavedSounds(Resource):
     def get(self):
         if 'logged_in_user_id' not in session:
             return make_response({'error': 'User not logged in'}, 401)
 
         logged_in_user_id = session['logged_in_user_id']
-        user_sounds = [sound.to_dict() for sound in SaveSound.query.filter_by(user_id=logged_in_user_id).all()]
+        user_sounds = [sound.sound_id for sound in SaveSound.query.filter_by(
+            user_id=logged_in_user_id).all()]
+        print(user_sounds)
         return make_response(user_sounds, 200)
 
 
-
 api.add_resource(UserSavedSounds, '/user_saved_sounds')
+
+
+class UnSaveSoundsById(Resource):
+    def delete(self, id):
+        if 'logged_in_user_id' not in session:
+            return make_response({'error': 'User not logged in'}, 401)
+
+        logged_in_user_id = session['logged_in_user_id']
+
+        saved_sound = SaveSound.query.filter_by(
+            user_id=logged_in_user_id, sound_id=id).one_or_none()
+        if saved_sound is None:
+            return make_response({'error': 'Sound is not found'}, 404)
+        db.session.delete(saved_sound)
+        db.session.commit()
+        return make_response('', 204)
+
+
+api.add_resource(UnSaveSoundsById, '/user_saved_sounds/<int:id>')
 
 
 class Scores(Resource):
@@ -272,23 +293,30 @@ class Scores(Resource):
             return make_response({'error': 'User not logged in'}, 401)
 
         logged_in_user_id = session['logged_in_user_id']
-        print(logged_in_user_id)
         data = request.json  # Assuming you send JSON data in the request
         new_score = data.get('score_value')
-        print(new_score)
+
         if new_score is None:
             return {'message': 'score_value is required in the request data'}, 400
 
         try:
-            userId = Score.query.filter_by(user_id=logged_in_user_id).first()
-            print(userId.score)
-            if userId is None:
+            user_score = Score.query.filter_by(
+                user_id=logged_in_user_id).first()
+
+            if user_score is None:
                 return {'message': 'User not found'}, 404
 
-            userId.score = new_score
+            user_score.score = new_score
             db.session.commit()
 
-            return {'message': 'Score updated successfully'}, 200
+            # Build a dictionary with the user's score data
+            response_data = {
+                'user_id': user_score.user_id,  # Include any other relevant data
+                'score': user_score.score
+            }
+
+            # Return the response as JSON with a 202 status code
+            return make_response(jsonify(response_data), 202)
 
         except Exception as e:
             db.session.rollback()  # Roll back the transaction on error
@@ -297,6 +325,29 @@ class Scores(Resource):
 
 
 api.add_resource(Scores, '/scores')
+
+
+class UserScore(Resource):
+    def get(self):
+        if 'logged_in_user_id' not in session:
+            return make_response({'error': 'User not logged in'}, 401)
+
+        logged_in_user_id = session['logged_in_user_id']
+        user_score = Score.query.filter_by(user_id=logged_in_user_id).first()
+        print("score", user_score.score)
+        # score.to_dict() for sound in SaveSound.query.filter_by(user_id=logged_in_user_id).firstl()
+
+        response_data = {
+            'user_id': user_score.user_id,  # Include any other relevant data
+            'score': user_score.score
+        }
+
+        return make_response(jsonify(response_data), 202)
+        # return make_response(user_score.score, 200)
+
+
+api.add_resource(UserScore, '/user_score')
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

@@ -114,7 +114,7 @@ function CreateCard() {
       }
     },
   });
-
+  console.log(sounds)
   return (
     <div>
       {/* <NavBar /> */}

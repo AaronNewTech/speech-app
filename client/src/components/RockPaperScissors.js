@@ -1,3 +1,5 @@
+// initial code source
+// https://www.codingnepalweb.com/rock-paper-scissors-game-javascript/
 import React, { useState, useEffect } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -17,7 +19,7 @@ const RockPaperScissors = () => {
   const [result, setResult] = useState("Let's Play!!");
   const [activeOptionIndex, setActiveOptionIndex] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [score, setScore] = useState(0);
+  const [points, setPoints] = useState(0);
 
   const optionImages = [
     "images/rock.png",
@@ -59,16 +61,16 @@ const RockPaperScissors = () => {
       setResult(gameResult === "Draw" ? "Match Draw" : `${gameResult} Won!!`);
     }, 2500);
 
-    let tempScore = score + 1;
-    setScore(tempScore);
+    let tempPoints = points + 1;
+    setPoints(tempPoints);
   };
   console.log(result);
   useEffect(() => {
-    // Check if the score is a multiple of 3 (increases by 3)
-    if (score % 3 === 0 && score > 0) {
-      setIsOpen(true); // Open the modal when the score increases by 3
+    // Check if the Points is a multiple of 3 (increases by 3)
+    if (points % 3 === 0 && points > 0) {
+      setIsOpen(true); // Open the modal when the Points increases by 3
     }
-  }, [score]);
+  }, [points]);
 
   return (
     <div>
@@ -102,7 +104,7 @@ const RockPaperScissors = () => {
             </span>
           ))}
         </div>
-        <p>Score: {score}</p>
+        <p>Points: {points}</p>
       </section>
       <ReactModal
         isOpen={isOpen}
