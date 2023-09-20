@@ -20,6 +20,7 @@ const RockPaperScissors = () => {
   const [activeOptionIndex, setActiveOptionIndex] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [points, setPoints] = useState(0);
+  const [counter, setCounter] = useState(0);
 
   const optionImages = [
     "images/rock.png",
@@ -59,18 +60,20 @@ const RockPaperScissors = () => {
       const gameResult = outcomes[outcomeKey] || "Invalid choice";
 
       setResult(gameResult === "Draw" ? "Match Draw" : `${gameResult} Won!!`);
-    }, 2500);
+      if (gameResult === "User") {
+        setPoints(points + 1);
+      }
 
-    let tempPoints = points + 1;
-    setPoints(tempPoints);
+      setCounter(counter + 1);
+    }, 2500);
   };
-  console.log(result);
+
   useEffect(() => {
     // Check if the Points is a multiple of 3 (increases by 3)
-    if (points % 3 === 0 && points > 0) {
+    if (counter % 3 === 0 && counter > 0) {
       setIsOpen(true); // Open the modal when the Points increases by 3
     }
-  }, [points]);
+  }, [counter]);
 
   return (
     <div>
