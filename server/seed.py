@@ -18,7 +18,7 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db, User, Sound, SavedSound, Score
+from models import db, User, Sound, SaveSound, Score
 
 with app.app_context():
     if __name__ == '__main__':
@@ -27,7 +27,7 @@ with app.app_context():
 
         User.query.delete()
         Sound.query.delete()
-        SavedSound.query.delete()
+        SaveSound.query.delete()
         Score.query.delete()
 
         users = [
@@ -120,7 +120,7 @@ with app.app_context():
             Sound(sound="vest", image="images/22.png"),
             Sound(sound="watch", image="images/23.png"),
             Sound(sound="xylophone", image="images/24.png"),
-            Sound(sound="yoyo", image="images/25.png"),
+            Sound(sound="yo-yo", image="images/25.png"),
             Sound(sound="zipper", image="images/26.png"),
             
         ]
@@ -129,16 +129,16 @@ with app.app_context():
         for sound in sounds:
             db.session.add(sound)
 
-        # user_scores = [
-        #     Score(user_id=1, sound_id=1, score=0),
-        #     Score(user_id=2, sound_id=2, score=0),
-        #     Score(user_id=3, sound_id=3, score=0),
-        #     Score(user_id=4, sound_id=4, score=0),
-        #     Score(user_id=5, sound_id=5, score=0)
-        # ]
+        user_scores = [
+            Score(user_id=1, sound_id=1, score=0),
+            Score(user_id=2, sound_id=2, score=0),
+            Score(user_id=3, sound_id=3, score=0),
+            Score(user_id=4, sound_id=4, score=0),
+            Score(user_id=5, sound_id=5, score=0)
+        ]
 
-        # # Add user_scores to the session one by one
-        # for score in user_scores:
-        #     db.session.add(score)
+        # Add user_scores to the session one by one
+        for score in user_scores:
+            db.session.add(score)
 
         db.session.commit()

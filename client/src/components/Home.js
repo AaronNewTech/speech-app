@@ -1,32 +1,47 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 
-function Home({ loggedIn, setLoggedIn}) {
+function Home() {
+  // const navigate = useNavigate();
+
+  // function handleRoute(route) {
+  //   navigate(route);
+  // }
+
   return (
     <div>
-      <NavBar  />
-      <div className="instructions">
-        <h1>Speech Trainer</h1>
-        <h2>How to Use This App:</h2>
-        <br />
-        <p>
-          This application has games that are played with intermittent speech
-          practice opportunities.
-        </p>
-        <br />
-        <p>
-          The game continues when the player correctly speaks the requested
-          sound.
-        </p>
-        <br />
-        <p>
-          The goal is to use the fun of games to teach the player how to speak.
-        </p>
-        <br />
-        <p>
-          For the best experience and to track your progress please login.
-        </p>
+      {/* href="http://localhost:3000/speech-trainer" */}
+      <img
+        id="speech-trainer-main-logo"
+        src="/images/speech-trainer-main-logo.png"
+      ></img>
+      <div className="image-link-container">
+        <NavLink to="/videos">
+          <img
+            id="video-speech-trainer-logo"
+            src="/images/video-speech-trainer-logo.png"
+            alt="Video Speech Trainer"
+          />
+        </NavLink>
+        <NavLink to="/speech-practice">
+          <img
+            id="first-words-logo"
+            src="/images/first-words-logo.png"
+            alt="First Words"
+          />
+        </NavLink>
+        <NavLink to="/rock-paper-scissors-game">
+          <img
+            id="rock-paper-scissors-logo"
+            src="/images/rock-paper-scissors-logo.png"
+            alt="Rock Paper Scissors"
+          />
+        </NavLink>
       </div>
+      {/* <img id="video-speech-trainer-logo" src="/images/video-speech-trainer-logo.png" ></img>
+      <img id="first-words-logo" src="/images/first-words-logo.png" ></img>
+      <img id="rock-paper-scissors-logo" src="/images/rock-paper-scissors-logo.png" ></img> */}
     </div>
   );
 }

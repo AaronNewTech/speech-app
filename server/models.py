@@ -21,8 +21,9 @@ class Sound(db.Model, SerializerMixin):
         'Score', cascade='all, delete', backref='Sound')
 
     # serialize rules
-    serialize_rules = ('-sound_scores.user_scores', '-sound_scores.sound.sound_scores',)
-
+    # serialize_rules = ('-sound_scores.user_scores',
+    #                    '-sound_scores.sound.sound_scores',)
+    # serialize_rules = ('-',)
     # validations
 
     @validates('sound')
@@ -51,8 +52,9 @@ class User(db.Model, SerializerMixin):
         'Score', cascade='all, delete', backref='user')
 
     # serialize rules
-    serialize_rules = ('-user_scores.sound_scores.user_scores', '-user_scores.sound.sound_scores',)
-
+    # serialize_rules = ('-user_scores.sound_scores.user_scores',
+    #                    '-user_scores.sound.sound_scores',)
+    serialize_rules = ('-user_scores.sound', '-user_scores.sound.sound_scores',)
     # validations
 
     @validates('email')
@@ -79,15 +81,15 @@ class Score(db.Model, SerializerMixin):
 
     # serialize rules
     # serialize_rules = ('-drink.drink_ingredient_associations', '-ingredient.drink_ingredient_associations',)
+    # serialize_rules = ('-user.user_scores', '-sound.sound_scores',)
     serialize_rules = ('-user.user_scores', '-sound.sound_scores',)
-
     # validations
 
     def __repr__(self):
         return f'<Score {self.id}>'
 
 
-class SavedSound(db.Model, SerializerMixin):
+class SaveSound(db.Model, SerializerMixin):
     __tablename__ = 'saved_sounds'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -104,4 +106,4 @@ class SavedSound(db.Model, SerializerMixin):
     # validations
 
     def __repr__(self):
-        return f'<Savedsound {self.id}>'
+        return f'<SavedSound {self.id}>'

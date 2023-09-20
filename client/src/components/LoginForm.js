@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import NavBar from "./NavBar";
 import { useAuth } from "./UseContext"; // Import the useAuth hook
 
-function LoginForm() {
+function LoginForm( { email, setEmail } ) {
   const { user, login, logout } = useAuth(); // Use the useAuth hook to access user data
 
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -31,7 +30,7 @@ function LoginForm() {
         const data = await response.json();
         if (data.success) {
           // Login successful, update your app's state to indicate the user is logged in
-          login(true); // Update the user state using the login function from useAuth
+          login(); // Update the user state using the login function from useAuth
           localStorage.setItem("isLoggedIn", "true"); // Store login status
           setEmail(""); // Clear email field
           setPassword(""); // Clear password field
@@ -55,14 +54,13 @@ function LoginForm() {
   const handleLogout = () => {
     // Logout the user by removing their login status from localStorage
     localStorage.removeItem("isLoggedIn");
+    localStorage.clear();
     logout(); // Update the user state using the logout function from useAuth
   };
 
-  console.log(user);
   return (
     <div>
-      <NavBar />
-      {user ? ( // Check the user state instead of loggedIn
+      {user ? (
         <>
           <p>Welcome back, {email}! You are now logged in.</p>
           <button id="logout-button" onClick={handleLogout}>
@@ -97,7 +95,7 @@ function LoginForm() {
       {error && <p style={{ color: "red" }}>{error}</p>}
       <div id="create-account-container">
         <p id="create-account-text">Not Registered?</p>
-        <a id="create-account-link" href="http://localhost:3000/create_account">
+        <a id="create-account-link" href="http://localhost:3000/create-account">
           Create an account
         </a>
       </div>

@@ -4,7 +4,7 @@ import NavBar from "./NavBar";
 function About() {
   return (
     <div>
-      <NavBar  />
+      {/* <NavBar  /> */}
       <div className="instructions">
         <h1>Speech Trainer</h1>
         <h2>How to Use This App:</h2>
@@ -23,9 +23,7 @@ function About() {
           The goal is to use the fun of games to teach the player how to speak.
         </p>
         <br />
-        <p>
-          For the best experience and to track your progress please login.
-        </p>
+        <p>For the best experience and to track your progress please login.</p>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import NavBar from "./NavBar";
 import FlashCard from "./FlashCard";
 
-function CreateCard() {
+function SavedCards() {
   const [formErrors, setFormErrors] = useState([]);
   const [sounds, setSounds] = useState([]);
   const [selectedSound, setSelectedSound] = useState(null);
@@ -106,7 +106,6 @@ function CreateCard() {
         const sound = await response.json();
         // addSound(sound);
         formik.resetForm();
-        fetchAllSounds();
         setFormErrors([]);
       } else {
         const err = await response.json();
@@ -191,4 +190,4 @@ function CreateCard() {
   );
 }
 
-export default CreateCard;
+export default SavedCards;

@@ -10,6 +10,9 @@
 }
 
 .navbarStyles {
+  /* position: fixed;
+  width: 100%;
+  top: 0; */
   color: white;
   display: flex;
   justify-content: space-between;
@@ -34,6 +37,67 @@
 .navbarStyles a:visited {
   color: white;
   font-weight: bold;
+}
+
+.dropdown {
+  position: relative;
+  float: right;
+}
+
+.dropdown .dropdown-content {
+  padding-left: 20px;
+  margin-right: -10px;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: rgba(244, 140, 12, 0.8);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+#speech-trainer-main-logo {
+  padding-top: 8%;
+  position: relative;
+  left: 30%;
+  transform: translateX(-50%);
+  max-width: 70%;
+}
+
+/* Style for each image */
+#video-speech-trainer-logo,
+#first-words-logo,
+#rock-paper-scissors-logo {
+  max-width: 140%; /* Set the initial max-width */
+
+  /* Add a transition to smoothly change the size */
+  transition: max-width 0.3s ease-in-out;
+}
+
+#video-speech-trainer-logo:hover,
+#first-words-logo:hover,
+#rock-paper-scissors-logo:hover {
+  max-width: 180%; /* Enlarge the image on hover */
+}
+
+.image-link-container {
+  margin-top: -45%;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  transform: translateX(-100%);
+  max-width: 50%;
+  left: 80%;
+}
+
+.image-link-container:hover {
+  cursor: pointer;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 
 body {
@@ -227,6 +291,19 @@ body {
 .new-sound-form #button {
   margin-left: 25px;
   margin-top: 25px;
+}
+
+.embed-video {
+  /* display: flex; */
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
+  height: 100vh; /* Set the height to fill the viewport */
+  padding-top: 30px;
+}
+
+.video-text {
+  text-align: center;
+  padding-top: 30px;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");

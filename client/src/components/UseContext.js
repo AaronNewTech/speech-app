@@ -1,16 +1,26 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 
 function UseContext({ children }) {
   const [user, setUser] = useState(null);
 
-  const login = (userData) => {
-    setUser(userData);
+  useEffect(() => {
+    // Check local storage for user authentication status on component mount
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (isLoggedIn) {
+      setUser(true);
+    }
+  }, []);
+
+  const login = () => {
+    setUser(true);
+    localStorage.setItem("isLoggedIn", "true");
   };
 
   const logout = () => {
-    setUser(null);
+    setUser(false);
+    localStorage.removeItem("isLoggedIn");
   };
 
   return (
@@ -24,5 +34,5 @@ function useAuth() {
   return useContext(AuthContext);
 }
 
-export default UseContext; // Export the UseContext component as the default export
-export { useAuth }; // Export the useAuth function as a named export
+export default UseContext;
+export { useAuth };

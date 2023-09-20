@@ -3,12 +3,10 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "./UseContext";
 
 function NavBar() {
-
   const { user, login, logout } = useAuth();
-  console.log(user);
-  console.log(login);
-  console.log(logout);
   
+  
+
   return (
     <div>
       <nav className="navbarStyles">
@@ -21,27 +19,46 @@ function NavBar() {
         <li>
           <NavLink to="/about"> About </NavLink>
         </li>
-        {/* <li>
-          <NavLink to="/create_account"> Create Account </NavLink>
-        </li> */}
         <li>
-          <NavLink to="/create_card"> Create Card </NavLink>
-        </li>
-        <li>
-          <NavLink to="/rock_paper_scissors_game">Rock Paper Scissors</NavLink>
-        </li>
-        <li>
-          <NavLink to="/saved-cards"> Saved Cards </NavLink>
+          <NavLink to="/create-card"> Create Card </NavLink>
         </li>
         {/* <li>
-          <NavLink to="/snake_game"> Snake Game </NavLink>
-        </li> */}
-        {/* <li>
-          <NavLink to="/tic_tac_toe_game"> TicTacToe Game </NavLink>
-        </li> */}
-        <li>
-          <NavLink to="/speech_practice"> Speech Practice </NavLink>
+          <NavLink to="/videos"> Videos </NavLink>
         </li>
+        <li>
+          <NavLink to="/rock-paper-scissors-game">Rock Paper Scissors</NavLink>
+        </li> */}
+        {user ? (
+          <li>
+            <NavLink to="/saved-cards"> Saved Cards </NavLink>
+          </li>
+        ) : (
+          <></>
+        )}
+
+        {/* Dropdown menu */}
+        <li className="dropdown">
+          <a>Speech Practice</a>
+          <div>
+            <ul className="dropdown-content">
+              <li>
+                <NavLink to="/videos"> Video Speech Trainer </NavLink>
+              </li>
+              <li>
+                <NavLink to="/speech-practice"> First Words </NavLink>
+              </li>
+              <li>
+                <NavLink to="/rock-paper-scissors-game">
+                  Rock Paper Scissors
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        {/* <li>
+          <NavLink to="/speech-practice"> Speech Practice </NavLink>
+        </li> */}
       </nav>
     </div>
   );

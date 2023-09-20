@@ -5,55 +5,50 @@ import LoginForm from "./LoginForm";
 import CreateUser from "./CreateAccount";
 import CreateCard from "./CreateCard";
 import RockPaperScissors from "./RockPaperScissors";
-// import SnakeGame from "./SnakeGame";
-// import TicTacToe from "./TicTacToeGame";
 import SpeechPractice from "./SpeechPractice";
 import UseContext from "./UseContext";
 import { useAuth } from "./UseContext";
 import About from "./About";
+import SavedCards from "./SavedCards";
+import EmptyRoute from "./EmptyRoute";
+import NavBar from "./NavBar";
+import Videos from "./Videos";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [recordState, setRecordState] = useState(false);
-  const [score, setScore] = useState(1);
+  const [email, setEmail] = useState("");
 
+  // console.log(email)
   return (
     <div>
       <UseContext>
+        <NavBar />
         <Routes>
+          <Route exact path="/" element={<Home />} />
           <Route
             exact
-            path="/"
-            element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
+            path="/login"
+            element={<LoginForm email={email} setEmail={setEmail} />}
           />
-          <Route exact path="/login" element={<LoginForm />} />
+          <Route exact path="/about" element={<About />} />
+          <Route exact path="/create-account" element={<CreateUser />} />
+          <Route exact path="/create-card" element={<CreateCard />} />
+          <Route exact path="/videos" element={<Videos />} />
           <Route
             exact
-            path="/create_account"
-            element={
-              <CreateUser loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-            }
-          />
-          <Route exact path="/create_card" element={<CreateCard />} />
-          <Route
-            exact
-            path="/rock_paper_scissors_game"
-            element={
-              <RockPaperScissors
-                loggedIn={loggedIn}
-                setLoggedIn={setLoggedIn}
-                score={score}
-                setscore={setScore}
-              />
-            }
+            path="/rock-paper-scissors-game"
+            element={<RockPaperScissors />}
           />
 
           {/* <Route exact path="/snake_game" element={<SnakeGame loggedIn={loggedIn} setLoggedIn={setLoggedIn} score={score} setscore={setScore} />} />
         <Route exact path="/tic_tac_toe_game" element={<TicTacToe loggedIn={loggedIn} setLoggedIn={setLoggedIn} score={score} setScore={setscore} />} /> */}
 
-          <Route exact path="/about" element={<About />} />
-
-          <Route exact path="/speech_practice" element={<SpeechPractice />} />
+          <Route exact path="/saved-cards" element={<SavedCards />} />
+          <Route
+            exact
+            path="/speech-practice"
+            element={<SpeechPractice email={email} setEmail={setEmail} />}
+          />
+          <Route exact path="/empty-route" element={<EmptyRoute />} />
         </Routes>
       </UseContext>
     </div>

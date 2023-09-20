@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from "react";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import { useAuth } from "./UseContext";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 import Speech from "speak-tts";
-import NavBar from "./NavBar";
 import FlashCard from "./FlashCard";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const SpeechPractice = ({ keyCount }) => {
+const SpeechPractice = ({ email, setEmail }) => {
   const [randomSound, setRandomSound] = useState(null);
   const [loading, setLoading] = useState(true);
   const [hasSpokenGreatJob, setHasSpokenGreatJob] = useState(false);
-  const [showNextButton, setShowNextButton] = useState(false);
+  const [score, setScore] = useState(0);
 
-
+  const navigate = useNavigate();
   const minSoundId = 1;
   const maxSoundId = 26;
 
   useEffect(() => {
-
     fetchRandomSound();
-    
   }, []);
 
   const fetchRandomSound = async () => {
     try {
-      const randomSoundId =
-        Math.floor(Math.random() * (maxSoundId - minSoundId + 1)) + minSoundId;
+      const randomSoundId = 1;
+      // Math.floor(Math.random() * (maxSoundId - minSoundId + 1)) + minSoundId;
 
       const response = await fetch(`/sounds/${randomSoundId}`);
 
@@ -33,14 +33,13 @@ const SpeechPractice = ({ keyCount }) => {
         await initPlayText(randomSoundData.sound);
 
         setRandomSound(randomSoundData);
-        console.log(randomSoundData);
         setLoading(false);
-        return randomSoundData;
+      } else {
+        setLoading(false);
       }
-      // Data has been fetched, set loading to false
     } catch (error) {
       console.error("An error occurred while fetching random sound:", error);
-      setLoading(false); // Handle the error case and set loading to false
+      setLoading(false);
     }
   };
 
@@ -49,7 +48,6 @@ const SpeechPractice = ({ keyCount }) => {
       speech.speak({
         text: sound,
       });
-      // console.log(sound)
     }
   };
 
@@ -93,62 +91,131 @@ const SpeechPractice = ({ keyCount }) => {
     return <span>Browser doesn't support speech recognition.</span>;
   }
 
+  const handleScoreChange = async (event) => {
+    const newScore = score + 1;
+
+    try {
+      const response = await fetch("/scores", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          score_value: newScore,
+        }),
+      });
+
+      if (response.ok) {
+        // Handle a successful response here, e.g., update the state if needed
+
+        console.log("Score updated successfully");
+      } else {
+        console.error("Failed to update score on the server");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
+    // Only update the state if the score has actually changed
+    // if (newScore !== score) {
+
+    // }
+  };
+
+  let result = null;
+
+  if (transcript.toLowerCase()) {
+    if (transcript.toLowerCase() === randomSound.sound) {
+      result = "Correct";
+      
+    } else if (transcript.toLowerCase() !== randomSound.sound) {
+      result = "Incorrect, try again";
+    }
+  } else {
+    result = "";
+  }
+
+  if (
+    randomSound &&
+    transcript.toLowerCase() === randomSound.sound &&
+    !hasSpokenGreatJob
+  ) {
+    initPlayText("Great job");
+    setHasSpokenGreatJob(true);
+    setScore(score + 1);
+    handleScoreChange();
+  }
+
+  const handleNextCard = () => {
+    navigate("/empty-route");
+  };
+
+  // const handleSaveSound = async () => {
+
+  //     try {
+  //       const response = await fetch('/save_sound', {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({ userId, drinkId }),
+  //       });
+
+  //       if (response.ok) {
+  //         setIsFavorited(true);
+  //       } else {
+  //         console.error('Failed to add sound to favorites');
+  //       }
+  //     } catch (error) {
+  //       console.error('Error:', error);
+  //     }
+  //   };
+
   const handleTextareaChange = (event) => {
     // Update the transcript when the textarea value changes
     resetTranscript(); // Reset the transcript since it's controlled
   };
 
-  let correct = "";
-
-  if (randomSound && transcript === randomSound.sound) {
-    correct = "Correct";
-    
-  } else {
-    correct = "";
-  }
-  
-  if (randomSound && transcript === randomSound.sound && !hasSpokenGreatJob) {
-    initPlayText("Great job");
-    setHasSpokenGreatJob(true); // Mark that "Great job" has been spoken
-  }
-
-  const handleNextCard = () => {
-    if (showNextButton) {
-      // Redirect when the "Next" button is clicked
-      redirect("/speech_practice");
-    }
-  };
-
   return (
-    <div>
-      <NavBar />
-      <div className="voice-test">
-        <p id="microphone" >Microphone: {listening ? "on" : "off"}</p>
-        <button onClick={handleClick}>Start</button>
-        <button onClick={() => SpeechRecognition.stopListening()}>Stop</button>
-        <button onClick={() => resetTranscript()}>Reset</button>
-        <br />
-        <br />
-        {loading ? ( // Render a loading indicator while fetching data
-          <p>Loading...</p>
-        ) : (
-          <>
-            {randomSound && (
-              <>
-                {/* <h2>{`Say the word  "${randomSound.sound}"`}</h2> */}
-
-                <FlashCard sound={randomSound} />
-              </>
-            )}
-          </>
-        )}
-        <br />
-        <button onClick={handlePlayText}>Play Audio</button>
-        <br />
-        <br />
-        <h2>{correct}</h2>
-        {hasSpokenGreatJob ? <button onClick={handleNextCard} >Next Card</button> :  <div></div>}
-      </div>
+    <div className="voice-test">
+      <div id="score">Score: {score}</div>
+      <p id="microphone">Microphone: {listening ? "on" : "off"}</p>
+      <button onClick={handleClick}>Start</button>
+      <button onClick={() => SpeechRecognition.stopListening()}>Stop</button>
+      <button onClick={() => resetTranscript()}>Reset</button>
+      <br />
+      <br />
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          {randomSound && (
+            <>
+              <FlashCard sound={randomSound} email={email} />
+            </>
+          )}
+        </>
+      )}
+      <br />
+      <form>
+        <textarea
+          value={transcript}
+          placeholder="Your speech"
+          onChange={(e) => resetTranscript(e.target.value)}
+        ></textarea>
+      </form>
+      <button onClick={handlePlayText}>Play Audio</button>
+      <br />
+      <br />
+      <h2>{result}</h2>
+      <br />
+      {/* {hasSpokenGreatJob ? (
+        <button onClick={handleNextCard}>Next Card</button>
+      ) : (
+        <div></div>
+      )} */}
+      <button onClick={handleNextCard}>Next Card</button>
+      {/* <button onClick={handleSaveSound}>Save Sound</button> */}
     </div>
   );
 };
