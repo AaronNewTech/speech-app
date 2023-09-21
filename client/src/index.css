@@ -75,6 +75,10 @@
   transition: max-width 0.3s ease-in-out;
 }
 
+#rps-body {
+  background-color: rgba(241, 180, 105, 0.822);
+}
+
 #video-speech-trainer-logo:hover,
 #first-words-logo:hover,
 #rock-paper-scissors-logo:hover {

@@ -17,6 +17,7 @@ import Videos from "./Videos";
 
 function App() {
   const [email, setEmail] = useState("");
+  
 
   // console.log(email)
   return (

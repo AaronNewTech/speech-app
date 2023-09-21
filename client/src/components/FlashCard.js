@@ -2,7 +2,6 @@ import React from "react";
 import SaveSoundButton from "./SaveSoundButton";
 
 function FlashCard({ sound, email }) {
-  // console.log(sound.id)
   return (
     <div>
       <div>

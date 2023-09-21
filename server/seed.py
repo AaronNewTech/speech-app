@@ -122,6 +122,31 @@ with app.app_context():
             Sound(sound="xylophone", image="images/24.png"),
             Sound(sound="yo-yo", image="images/25.png"),
             Sound(sound="zipper", image="images/26.png"),
+            Sound(sound="seal", image="images/27.png"),
+            Sound(sound="fish", image="images/28.png"),
+            Sound(sound="bear", image="images/29.png"),
+            Sound(sound="dog", image="images/30.png"),
+            Sound(sound="cat", image="images/31.png"),
+            Sound(sound="red", image="images/32.png"),
+            Sound(sound="blue", image="images/33.png"),
+            Sound(sound="yellow", image="images/34.png"),
+            Sound(sound="purple", image="images/35.png"),
+            Sound(sound="green", image="images/36.png"),
+            Sound(sound="orange", image="images/37.png"),
+            Sound(sound="zero", image="images/38.png"),
+            Sound(sound="one", image="images/39.png"),
+            Sound(sound="two", image="images/40.png"),
+            Sound(sound="three", image="images/41.png"),
+            Sound(sound="four", image="images/42.png"),
+            Sound(sound="five", image="images/43.png"),
+            Sound(sound="six", image="images/44.png"),
+            Sound(sound="seven", image="images/45.png"),
+            Sound(sound="eight", image="images/46.png"),
+            Sound(sound="nine", image="images/47.png"),
+            Sound(sound="10", image="images/48.png"),
+
+
+
             
         ]
 

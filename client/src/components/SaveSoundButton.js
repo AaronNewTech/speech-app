@@ -22,7 +22,7 @@ function SaveSoundButton({ soundId, email }) {
         const userSoundData = await response.json();
         // await initPlayText(randomSoundData.sound);
         let sounds = userSoundData
-        console.log(userSoundData);
+        // console.log(userSoundData);
         setUserSavedSounds(sounds)
         
       }
@@ -33,7 +33,7 @@ function SaveSoundButton({ soundId, email }) {
   // useEffect(() => {
   //   console.log('userSavedSounds updated:', userSavedSounds);
   // }, [userSavedSounds]);
-  console.log(userSavedSounds);
+  // console.log(userSavedSounds);
   const isSoundSaved = userSavedSounds.includes(soundId);
 
   const handleFavoriteClick = async () => {

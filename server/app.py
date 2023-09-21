@@ -96,7 +96,7 @@ class Logout(Resource):
             logged_in_user_id = session['logged_in_user_id']
             # Use user_id to query the user's data from the database
             logged_in_user_id = User.query.get(logged_in_user_id)
-            print(logged_in_user_id)
+            # print(logged_in_user_id)
             # Remove user_id from the session
             session.pop('logged_in_user_id', None)
         # Redirect to the login page or another page after logout
@@ -115,12 +115,34 @@ class Sounds(Resource):
 api.add_resource(Sounds, '/sounds')
 
 
+class GetLastSoundId(Resource):
+    def get(self):
+        last_sound = Sound.query.order_by(Sound.id.desc()).first()
+        if last_sound:
+            last_id = last_sound.id
+            # print("Last id", last_id)
+            return make_response(jsonify(last_id), 200)
+        # response_data = {
+        #     'user_id': user_score.user_id,  # Include any other relevant data
+        #     'score': user_score.score
+        # }
+
+        # return make_response(jsonify(response_data), 202)
+        else:
+            # Handle the case where there are no entries in the database
+            return make_response({'message': 'No entries found'}, 404)
+
+
+
+api.add_resource(GetLastSoundId, '/get_last_sound_id')
+
+
 class CreatedSounds(Resource):
     def get(self):
-        min_id = request.args.get('id_gte', type=int, default=27)
+        min_id = request.args.get('id_gte', type=int, default=49)
         filtered_sounds = [sound.to_dict()
                            for sound in Sound.query.filter(Sound.id >= min_id).all()]
-        return make_response(filtered_sounds, 200)
+        return make_response(filtered_sounds, 202)
 
 
 api.add_resource(CreatedSounds, '/created_sounds')
@@ -194,14 +216,14 @@ class SaveSounds(Resource):
         data = request.get_json()
 
         email = data.get('email')
-        print(email)
+        # print(email)
         sound_id = data.get('soundId')
 
         if 'logged_in_user_id' in session:
             logged_in_user_id = session['logged_in_user_id']
             # Use user_id to query the user's data from the database
             logged_in_user_id = User.query.get(logged_in_user_id)
-            print(logged_in_user_id.id)
+            # print(logged_in_user_id.id)
 
         # user = User.query.filter(User.email == email).first()
         # # print(user.id)
@@ -240,7 +262,7 @@ class GetUserId(Resource):
 api.add_resource(GetUserId, '/getUserId')
 
 
-class SaveSoundsById(Resource):
+class DeleteSaveSoundsById(Resource):
     def delete(self, id):
         saved_sound = SaveSound.query.filter(SaveSound.id == id).one_or_none()
         if saved_sound is None:
@@ -250,7 +272,7 @@ class SaveSoundsById(Resource):
         return make_response('', 204)
 
 
-api.add_resource(SaveSoundsById, '/save_sounds/<int:id>')
+api.add_resource(DeleteSaveSoundsById, '/save_sounds/<int:id>')
 
 
 class UserSavedSounds(Resource):
@@ -261,8 +283,8 @@ class UserSavedSounds(Resource):
         logged_in_user_id = session['logged_in_user_id']
         user_sounds = [sound.sound_id for sound in SaveSound.query.filter_by(
             user_id=logged_in_user_id).all()]
-        print(user_sounds)
-        return make_response(user_sounds, 200)
+        # print(user_sounds)
+        return make_response(user_sounds, 202)
 
 
 api.add_resource(UserSavedSounds, '/user_saved_sounds')
@@ -334,7 +356,7 @@ class UserScore(Resource):
 
         logged_in_user_id = session['logged_in_user_id']
         user_score = Score.query.filter_by(user_id=logged_in_user_id).first()
-        print("score", user_score.score)
+        # print("score", user_score.score)
         # score.to_dict() for sound in SaveSound.query.filter_by(user_id=logged_in_user_id).firstl()
 
         response_data = {

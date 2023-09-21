@@ -76,9 +76,9 @@ const RockPaperScissors = () => {
   }, [counter]);
 
   return (
-    <div>
+    <div  >
       {/* <NavBar /> */}
-      <section
+      <section id="rps-body"
         className={`container ${activeOptionIndex !== null ? "start" : ""}`}
       >
         <div className="result_field">

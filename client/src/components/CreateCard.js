@@ -19,7 +19,7 @@ function CreateCard() {
 
   const fetchAllSounds = async () => {
     try {
-      const response = await fetch("http://localhost:3000/created_sounds");
+      const response = await fetch("/created_sounds");
 
       if (response.ok) {
         const allSounds = await response.json();
@@ -34,7 +34,7 @@ function CreateCard() {
 
   const handleDelete = async (soundId) => {
     try {
-      const response = await fetch(`http://localhost:3000/sounds/${soundId}`, {
+      const response = await fetch(`/sounds/${soundId}`, {
         method: "DELETE",
       });
 
@@ -114,7 +114,7 @@ function CreateCard() {
       }
     },
   });
-  console.log(sounds)
+  // console.log(sounds)
   return (
     <div>
       {/* <NavBar /> */}

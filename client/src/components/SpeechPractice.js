@@ -13,17 +13,58 @@ const SpeechPractice = ({ email, setEmail }) => {
   const [loading, setLoading] = useState(true);
   const [hasSpokenGreatJob, setHasSpokenGreatJob] = useState(false);
   const [score, setScore] = useState(0);
+  // const [maxSoundId, setMaxSoundId] = useState(0);
 
   const navigate = useNavigate();
   const minSoundId = 1;
-  const maxSoundId = 26;
+  // const maxSoundId = 100;
 
   useEffect(() => {
-    fetchRandomSound();
+    fetchMaxSoundId();
+
     if (user) {
       fetchUserScore();
     }
   }, []);
+
+  const fetchMaxSoundId = async () => {
+    try {
+      const response = await fetch("/get_last_sound_id");
+      // console.log(response)
+      if (response.ok) {
+        const maxSoundData = await response.json();
+        // console.log(maxSoundData)
+        // let id = maxSoundData;
+        // setMaxSoundId(id);
+        // console.log(maxSoundId)
+        fetchRandomSound(maxSoundData);
+      } else {
+        console.error("Failed to fetch max sound ID");
+      }
+    } catch (error) {
+      console.error("An error occurred while fetching max sound ID:", error);
+    }
+  };
+
+  const fetchRandomSound = async (maxSoundId) => {
+    let randomSoundData = null;
+    while (!randomSoundData) {
+      const randomSoundId =
+        Math.floor(Math.random() * (maxSoundId - minSoundId + 1)) + minSoundId;
+      // console.log("random", randomSoundId);
+      const response = await fetch(`/sounds/${randomSoundId}`);
+
+      if (response.ok) {
+        randomSoundData = await response.json();
+        await initPlayText(randomSoundData.sound);
+
+        setRandomSound(randomSoundData);
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
+    }
+  };
 
   const fetchUserScore = async () => {
     try {
@@ -34,32 +75,10 @@ const SpeechPractice = ({ email, setEmail }) => {
         // await initPlayText(randomSoundData.sound);
         let score = userScoreData.score;
         setScore(score);
-        console.log(userScoreData.score);
+        // console.log(userScoreData.score);
       }
     } catch (error) {
       console.error("An error occurred while fetching random score:", error);
-    }
-  };
-
-  const fetchRandomSound = async () => {
-    try {
-      const randomSoundId =
-        Math.floor(Math.random() * (maxSoundId - minSoundId + 1)) + minSoundId;
-
-      const response = await fetch(`/sounds/${randomSoundId}`);
-
-      if (response.ok) {
-        const randomSoundData = await response.json();
-        await initPlayText(randomSoundData.sound);
-
-        setRandomSound(randomSoundData);
-        setLoading(false);
-      } else {
-        setLoading(false);
-      }
-    } catch (error) {
-      console.error("An error occurred while fetching random sound:", error);
-      setLoading(false);
     }
   };
 
@@ -169,27 +188,6 @@ const SpeechPractice = ({ email, setEmail }) => {
     navigate("/empty-route");
   };
 
-  // const handleSaveSound = async () => {
-
-  //     try {
-  //       const response = await fetch('/save_sound', {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify({ userId, drinkId }),
-  //       });
-
-  //       if (response.ok) {
-  //         setIsFavorited(true);
-  //       } else {
-  //         console.error('Failed to add sound to favorites');
-  //       }
-  //     } catch (error) {
-  //       console.error('Error:', error);
-  //     }
-  //   };
-
   const handleTextareaChange = (event) => {
     // Update the transcript when the textarea value changes
     resetTranscript(); // Reset the transcript since it's controlled
@@ -202,6 +200,7 @@ const SpeechPractice = ({ email, setEmail }) => {
       <button onClick={handleClick}>Start</button>
       <button onClick={() => SpeechRecognition.stopListening()}>Stop</button>
       <button onClick={() => resetTranscript()}>Reset</button>
+      <h3>Your Speech: {transcript} </h3>
       <br />
       <br />
       {loading ? (
@@ -216,13 +215,7 @@ const SpeechPractice = ({ email, setEmail }) => {
         </>
       )}
       <br />
-      <form>
-        <textarea
-          value={transcript}
-          placeholder="Your speech"
-          onChange={(e) => resetTranscript(e.target.value)}
-        ></textarea>
-      </form>
+
       <button onClick={handlePlayText}>Play Audio</button>
       <br />
       <br />

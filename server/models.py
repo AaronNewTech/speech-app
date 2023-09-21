@@ -3,6 +3,8 @@ from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import validates
 from sqlalchemy import MetaData
+from urllib.parse import urlparse
+from email_validator import validate_email, EmailNotValidError
 
 from config import db
 
@@ -32,6 +34,20 @@ class Sound(db.Model, SerializerMixin):
             raise ValueError('Invalid sound provided')
         return sound
 
+    @staticmethod
+    def url_validator(url):
+        try:
+            result = urlparse(url)
+            return all([result.scheme, result.netloc, result.path])
+        except:
+            return False
+
+    @validates('image')
+    def validate_image(self, key, image):
+        if not image or len(image) <= 0 or not self.url_validator(image):
+            raise ValueError('Invalid image URL provided')
+        return image
+
     def __repr__(self):
         return f'<Sound {self.id}>'
 
@@ -54,14 +70,29 @@ class User(db.Model, SerializerMixin):
     # serialize rules
     # serialize_rules = ('-user_scores.sound_scores.user_scores',
     #                    '-user_scores.sound.sound_scores',)
-    serialize_rules = ('-user_scores.sound', '-user_scores.sound.sound_scores',)
+    serialize_rules = ('-user_scores.sound',
+                       '-user_scores.sound.sound_scores',)
     # validations
 
     @validates('email')
     def validate_email(self, key, email):
-        if not email or len(email) <= 0 or not str(email):
+        if not email or len(email) <= 0:
             raise ValueError('Invalid email address provided')
+
+        # Use email_validator to validate the email
+        try:
+            validate_email(email)
+        except EmailNotValidError:
+            raise ValueError('Invalid email address provided')
+
         return email
+
+    @validates('password')
+    def validate_password(self, key, password):
+        if not password or len(password) <= 3:
+            raise ValueError('Invalid password provided')
+
+        return password
 
     def __repr__(self):
         return f'<User {self.id}>'
@@ -83,7 +114,14 @@ class Score(db.Model, SerializerMixin):
     # serialize_rules = ('-drink.drink_ingredient_associations', '-ingredient.drink_ingredient_associations',)
     # serialize_rules = ('-user.user_scores', '-sound.sound_scores',)
     serialize_rules = ('-user.user_scores', '-sound.sound_scores',)
+
     # validations
+    @validates('score')
+    def validate_score(self, key, score):
+        if not score or not str(score):
+            raise ValueError('Score must be an integer')
+
+        return score
 
     def __repr__(self):
         return f'<Score {self.id}>'
