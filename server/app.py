@@ -211,35 +211,32 @@ api.add_resource(SoundsById, '/sounds/<int:id>')
 
 
 class SaveSounds(Resource):
-    # def get(self):
-
-
     def post(self):
         data = request.get_json()
 
-        # email = data.get('email')
-        # # print(email)
         sound_id = data.get('soundId')
 
         if 'logged_in_user_id' in session:
             logged_in_user_id = session['logged_in_user_id']
-            # Use user_id to query the user's data from the database
-            logged_in_user_id = session.get(User, logged_in_user_id)
 
-        user_sound = SaveSound(user_id=logged_in_user_id.id, sound_id=sound_id)
+            user_sound = SaveSound(user_id=logged_in_user_id, sound_id=sound_id)
 
-        try:
-            db.session.add(user_sound)
-            db.session.flush()
-            db.session.commit()
+            try:
+                db.session.add(user_sound)
+                db.session.flush()
+                db.session.commit()
 
-            return make_response(user_sound.to_dict(), 201)
-        except ValueError:
-            db.session.rollback()
-            return make_response({"errors": ["validation errors"]}, 400)
+                return make_response(user_sound.to_dict(), 201)
+            except ValueError:
+                db.session.rollback()
+                return make_response({"errors": ["validation errors"]}, 400)
+        else:
+            # Handle the case where the user is not logged in
+            return make_response({"error": "User not logged in"}, 401)
 
 
 api.add_resource(SaveSounds, '/saved_sounds')
+
 
 
 class GetUserId(Resource):

@@ -17,6 +17,23 @@ div {
 
 /* write a navbar media query to stack the navbar links */
 
+#flash-card-container {
+  padding-bottom: 5%;
+}
+
+#login-container {
+  padding-top: 5%;
+  padding-left: 5%;
+}
+
+#about-container {
+  padding-top: 6%;
+}
+
+#navbar-container {
+  padding-bottom: 5%;
+}
+
 .navbar-links {
   display: flex;
   justify-content: space-between;
@@ -27,21 +44,17 @@ div {
 }
 
 .navbarStyles {
-  /* position: fixed;
+  position: fixed;
   width: 100%;
-  top: 0; */
-  
   z-index: 100;
   color: white;
   display: flex;
   justify-content: space-between;
   background-color: #d75a2d;
   padding-left: 3%;
-  /* padding-bottom: 2%; */
-  
   pointer-events: auto;
   align-items: center;
-  height: 15%;
+  padding-right: 1%;
 }
 
 .navbarStyles a {
@@ -96,7 +109,7 @@ div {
   /* height: 10%; */
   align-items: center;
   /* float: right; */
-  margin-top: .5%;
+  margin-top: 0.5%;
 }
 
 #facebook {
@@ -104,23 +117,22 @@ div {
   transform: translateX(110%) translateY(0%);
   /* margin-left: 3%; */
   /* margin-right: -20%; */
-
 }
 
-#instagram { 
+#instagram {
   width: 50%;
   /* height: 180%; */
   transform: translateX(80%) translateY(0%);
 }
 
-#twitter { 
+#twitter {
   width: 50%;
   /* height: 180%; */
   transform: translateX(50%) translateY(0%);
 }
 
 #add-sound-button {
-  padding: 10px 10px;
+  padding: 5px 45px;
   margin-left: 20px;
   display: inline-block;
   color: black;
@@ -131,10 +143,33 @@ div {
   font-size: 1em;
   overflow: hidden;
   background: none;
+  border-radius: 25px;
 }
 
 /*creating animation effect*/
 #add-sound-button:hover {
+  color: #111;
+  background: rgb(255, 155, 236);
+  box-shadow: 0 0 50px rgb(255, 155, 236);
+}
+
+#add-video-button {
+  padding: 5px 45px;
+  margin-left: 20px;
+  display: inline-block;
+  color: black;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 1em;
+  overflow: hidden;
+  background: none;
+  border-radius: 25px;
+}
+
+/*creating animation effect*/
+#add-video-button:hover {
   color: #111;
   background: rgb(255, 155, 236);
   box-shadow: 0 0 50px rgb(255, 155, 236);
@@ -170,7 +205,6 @@ button:hover {
   max-width: 70%;
   z-index: -10;
 }
-
 
 #about-image-2 {
   width: 80%;
@@ -209,7 +243,7 @@ button:hover {
   max-width: 150%;
 }
 
-#login-image {
+#login-image, #logout-image {
   /* padding-left: 20%; */
   transform: translateX(35%) translateY(-90%);
   width: 60%;
@@ -219,9 +253,9 @@ button:hover {
   transition: max-width 0.3s ease-in-out;
 }
 
-#login-image:hover {
+/* #login-image:hover {
   max-width: 150%;
-}
+} */
 
 #line-image {
   margin-top: 0%;
@@ -392,8 +426,12 @@ body {
 }
 
 #flash-card-library {
-  padding-top: 30px;
+  padding-top: 3%;
   text-align: center;
+}
+
+#practice-message {
+  padding-bottom: 3%;
 }
 
 .cards-container {
@@ -507,9 +545,27 @@ body {
   padding-top: 30px;
 }
 
+.new-video-form {
+  /* font-weight: bold; */
+  align-items: center;
+  padding-left: 50px;
+  padding-top: 30px;
+}
+
 .new-sound-form #sound {
   margin-left: 20px;
   margin-right: 25px;
+  margin-top: 25px;
+}
+
+.new-video-form #video {
+  margin-left: 20px;
+  margin-right: 25px;
+  margin-top: 25px;
+}
+
+.new-video-form #button {
+  margin-left: 25px;
   margin-top: 25px;
 }
 
@@ -563,6 +619,7 @@ body {
   border-radius: 14px;
   background: #fff;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  padding-top: 3%;
 }
 
 .result_images {

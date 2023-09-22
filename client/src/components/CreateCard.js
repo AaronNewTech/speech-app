@@ -146,7 +146,7 @@ function CreateCard() {
               </p>
             ))
           : null}
-        <input  id="add-sound-button" type="submit" value="Add Sound" />
+        <input  id="add-sound-button" type="submit" value="Create Sound" />
       </form>
       <h2 id="flash-card-library">Flash Card Library</h2>
       <div className="cards-container">

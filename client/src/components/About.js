@@ -3,7 +3,7 @@ import NavBar from "./NavBar";
 
 function About() {
   return (
-    <div>
+    <div id="about-container">
       <img
         id="about-image-1"
         src="/images/AboutPageImages/About1.png"

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import NavBar from "./NavBar";
 import { useAuth } from "./UseContext"; // Import the useAuth hook
 
-function LoginForm( { email, setEmail } ) {
-  const { user, login, logout } = useAuth(); // Use the useAuth hook to access user data
+function LoginForm({ email, setEmail }) {
+  const { user, login, logout } = useAuth();
 
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -59,10 +59,10 @@ function LoginForm( { email, setEmail } ) {
   };
 
   return (
-    <div>
+    <div id="login-container">
       {user ? (
         <>
-          <p>Welcome back, {email}! You are now logged in.</p>
+          <p id="logged-in-message" >Welcome back, {email}! You are now logged in.</p>
           <button id="logout-button" onClick={handleLogout}>
             Logout
           </button>

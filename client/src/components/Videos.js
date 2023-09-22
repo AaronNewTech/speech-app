@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import YouTube from "react-youtube";
-import SpeechPractice from "./SpeechPractice"; // Import your SpeechPractice component
+import SpeechPractice from "./SpeechPractice";
 import Modal from "react-modal";
+import * as yup from "yup";
+import { useFormik } from "formik";
 
 Modal.setAppElement("#root");
 
 const Videos = () => {
-  const videoId = "Wm4R8d0d8kU"; // Replace with your video ID
-
+  // const [videoUrl, setVideoUrl] = useState("Wm4R8d0d8kU")
+  const videoId = "Wm4R8d0d8kU"; 
+  const [formErrors, setFormErrors] = useState([]);
   const [player, setPlayer] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
@@ -74,11 +77,61 @@ const Videos = () => {
       player.playVideo();
     }
   };
+  const formik = useFormik({
+    initialValues: {
+      videoURL: "",
+    },
+    onSubmit: async (values) => {
+      const newVideo = {
+        video: values.video,
+      };
+
+      const response = await fetch("/create_card", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newVideo),
+      });
+
+      if (response.ok) {
+        const video = await response.json();
+        // addSound(sound);
+        formik.resetForm();
+        // fetchAllSounds();
+        setFormErrors([]);
+      } else {
+        const err = await response.json();
+        setFormErrors(err.errors);
+      }
+    },
+  });
 
   return (
     <div className="video-text">
       <h2> Video Speech Trainer </h2>
       <p>Say the word to continue watching the video</p>
+      {/* <form onSubmit={formik.handleSubmit} className="new-video-form">
+        <label htmlFor="email">Enter video URL: </label>
+        <input
+          id="video"
+          name="video"
+          type="text"
+          onChange={formik.handleChange}
+          value={formik.values.video}
+          placeholder="Video URL"
+        />
+
+        
+        {formErrors.length > 0
+          ? formErrors.map((err, index) => (
+              <p key={index} style={{ color: "red" }}>
+                {err}
+              </p>
+            ))
+          : null}
+        <input id="add-video-button" type="submit" value="Add Video" />
+      </form> */}
       <div className="embed-video">
         <YouTube
           videoId={videoId}

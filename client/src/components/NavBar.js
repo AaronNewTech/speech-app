@@ -6,7 +6,7 @@ function NavBar() {
   const { user, login, logout } = useAuth();
 
   return (
-    <div>
+    <div id="navbar-container" >
       <nav className="navbarStyles">
         <div className="navbar-links">
           <div>
@@ -68,7 +68,6 @@ function NavBar() {
               id="instagram"
               src="/images/Social/instagram.png"
               alt="instagram-icon"
-              
             />
           </NavLink>
           <NavLink to="https://twitter.com">

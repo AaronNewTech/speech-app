@@ -26,8 +26,9 @@ function SavedCards() {
 
   console.log();
   return (
-    <div>
-      <h2 id="flash-card-library">Flash Card Library</h2>
+    <div id="flash-card-library">
+      <h2 >Flash Card Library</h2>
+      <h3 id="practice-message">for extra practice</h3>
       <div className="cards-container">
         {sounds &&
           sounds.map((sound) => (

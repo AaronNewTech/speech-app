@@ -3,7 +3,7 @@ import SaveSoundButton from "./SaveSoundButton";
 
 function FlashCard({ sound, email }) {
   return (
-    <div>
+    <div id="flash-card-container" >
       <div>
         <h2>Say the word "{sound.sound}"</h2>
         <br />

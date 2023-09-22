@@ -199,7 +199,7 @@ const SpeechPractice = ({ email, setEmail }) => {
       <p id="microphone">Microphone: {listening ? "on" : "off"}</p>
       <button onClick={handleClick}>Start</button>
       <button onClick={() => SpeechRecognition.stopListening()}>Stop</button>
-      <button onClick={() => resetTranscript()}>Reset</button>
+      {/* <button onClick={() => resetTranscript()}>Reset</button> */}
       <h3>Your Speech: {transcript} </h3>
       <br />
       <br />

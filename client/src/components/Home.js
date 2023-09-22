@@ -31,7 +31,13 @@ function Home() {
               alt="level-up-image"
             />
             {user ? (
-              <></>
+              <NavLink to={"/login"}>
+              <img
+                id="logout-image"
+                src="/images/HomePageImages/HomeLogout.png"
+                alt="logout-image"
+              />
+            </NavLink>
             ) : (
               <NavLink to={"/login"}>
                 <img
