@@ -15,17 +15,33 @@ div {
   font-weight: bold;
 }
 
+/* write a navbar media query to stack the navbar links */
+
+.navbar-links {
+  display: flex;
+  justify-content: space-between;
+  width: 120%;
+  /* height: 5%; */
+  align-items: center;
+  z-index: 10;
+}
+
 .navbarStyles {
   /* position: fixed;
   width: 100%;
   top: 0; */
+  
   z-index: 100;
   color: white;
   display: flex;
   justify-content: space-between;
   background-color: #d75a2d;
-  padding: 10px;
+  padding-left: 3%;
+  /* padding-bottom: 2%; */
+  
   pointer-events: auto;
+  align-items: center;
+  height: 15%;
 }
 
 .navbarStyles a {
@@ -71,6 +87,36 @@ div {
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+.social-icons {
+  display: inline-flex;
+  /* justify-content: space-between; */
+  width: 40%;
+  /* height: 10%; */
+  align-items: center;
+  /* float: right; */
+  margin-top: .5%;
+}
+
+#facebook {
+  width: 50%;
+  transform: translateX(110%) translateY(0%);
+  /* margin-left: 3%; */
+  /* margin-right: -20%; */
+
+}
+
+#instagram { 
+  width: 50%;
+  /* height: 180%; */
+  transform: translateX(80%) translateY(0%);
+}
+
+#twitter { 
+  width: 50%;
+  /* height: 180%; */
+  transform: translateX(50%) translateY(0%);
 }
 
 #add-sound-button {
@@ -124,6 +170,7 @@ button:hover {
   max-width: 70%;
   z-index: -10;
 }
+
 
 #about-image-2 {
   width: 80%;
