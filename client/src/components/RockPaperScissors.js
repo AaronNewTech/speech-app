@@ -77,7 +77,7 @@ const RockPaperScissors = () => {
 
   return (
     <div  >
-      {/* <NavBar /> */}
+    
       <section id="rps-body"
         className={`container ${activeOptionIndex !== null ? "start" : ""}`}
       >

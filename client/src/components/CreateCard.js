@@ -117,7 +117,7 @@ function CreateCard() {
   // console.log(sounds)
   return (
     <div>
-      {/* <NavBar /> */}
+
       <form onSubmit={formik.handleSubmit} className="new-sound-form">
         <label htmlFor="email">Sound: </label>
         <input
@@ -146,7 +146,7 @@ function CreateCard() {
               </p>
             ))
           : null}
-        <input id="button" type="submit" value="Add Sound" />
+        <input  id="add-sound-button" type="submit" value="Add Sound" />
       </form>
       <h2 id="flash-card-library">Flash Card Library</h2>
       <div className="cards-container">

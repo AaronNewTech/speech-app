@@ -42,7 +42,6 @@ function CreateUser({ loggedIn, setLoggedIn }) {
 
   return (
     <div>
-      {/* <NavBar /> */}
       <p id="email-text">Sign up with an email address</p>
       <form onSubmit={formik.handleSubmit} className="create-account-form">
         <label htmlFor="email">Email: </label>

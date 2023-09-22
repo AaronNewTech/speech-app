@@ -12,8 +12,11 @@ const SpeechPractice = ({ email, setEmail }) => {
   const [randomSound, setRandomSound] = useState(null);
   const [loading, setLoading] = useState(true);
   const [hasSpokenGreatJob, setHasSpokenGreatJob] = useState(false);
-  const [score, setScore] = useState(0);
-  // const [maxSoundId, setMaxSoundId] = useState(0);
+  const [score, setScore] = useState(() => {
+    // Initialize score from localStorage, or 0 if not present
+    const storedScore = localStorage.getItem("score");
+    return storedScore ? parseInt(storedScore, 10) : 0;
+  });
 
   const navigate = useNavigate();
   const minSoundId = 1;
@@ -72,10 +75,11 @@ const SpeechPractice = ({ email, setEmail }) => {
 
       if (response.ok) {
         const userScoreData = await response.json();
-        // await initPlayText(randomSoundData.sound);
-        let score = userScoreData.score;
+        const score = userScoreData.score;
+
+        // Update the score state and localStorage
         setScore(score);
-        // console.log(userScoreData.score);
+        localStorage.setItem("score", score.toString());
       }
     } catch (error) {
       console.error("An error occurred while fetching random score:", error);
@@ -145,8 +149,9 @@ const SpeechPractice = ({ email, setEmail }) => {
       });
 
       if (response.ok) {
-        // Handle a successful response here, e.g., update the state if needed
-
+        // Update the score state and localStorage
+        setScore(newScore);
+        localStorage.setItem("score", newScore.toString());
         console.log("Score updated successfully");
       } else {
         console.error("Failed to update score on the server");
@@ -154,11 +159,6 @@ const SpeechPractice = ({ email, setEmail }) => {
     } catch (error) {
       console.error("Error:", error);
     }
-
-    // Only update the state if the score has actually changed
-    // if (newScore !== score) {
-
-    // }
   };
 
   let result = null;

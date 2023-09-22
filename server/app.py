@@ -39,7 +39,7 @@ class Register(Resource):
             if not password:
                 return 'Missing password', 400
 
-            hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+            hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(rounds=12))
             user = User(email=email, hash=hashed, password=password)
 
             db.session.add(user)
@@ -95,7 +95,7 @@ class Logout(Resource):
         if 'logged_in_user_id' in session:
             logged_in_user_id = session['logged_in_user_id']
             # Use user_id to query the user's data from the database
-            logged_in_user_id = User.query.get(logged_in_user_id)
+            logged_in_user_id = session.get(User, logged_in_user_id)
             # print(logged_in_user_id)
             # Remove user_id from the session
             session.pop('logged_in_user_id', None)
@@ -131,7 +131,6 @@ class GetLastSoundId(Resource):
         else:
             # Handle the case where there are no entries in the database
             return make_response({'message': 'No entries found'}, 404)
-
 
 
 api.add_resource(GetLastSoundId, '/get_last_sound_id')
@@ -212,23 +211,20 @@ api.add_resource(SoundsById, '/sounds/<int:id>')
 
 
 class SaveSounds(Resource):
+    # def get(self):
+
+
     def post(self):
         data = request.get_json()
 
-        email = data.get('email')
-        # print(email)
+        # email = data.get('email')
+        # # print(email)
         sound_id = data.get('soundId')
 
         if 'logged_in_user_id' in session:
             logged_in_user_id = session['logged_in_user_id']
             # Use user_id to query the user's data from the database
-            logged_in_user_id = User.query.get(logged_in_user_id)
-            # print(logged_in_user_id.id)
-
-        # user = User.query.filter(User.email == email).first()
-        # # print(user.id)
-        # if not user:
-        #     return make_response({"errors": ["User not found"]}, 404)
+            logged_in_user_id = session.get(User, logged_in_user_id)
 
         user_sound = SaveSound(user_id=logged_in_user_id.id, sound_id=sound_id)
 
@@ -262,18 +258,33 @@ class GetUserId(Resource):
 api.add_resource(GetUserId, '/getUserId')
 
 
-class DeleteSaveSoundsById(Resource):
-    def delete(self, id):
-        saved_sound = SaveSound.query.filter(SaveSound.id == id).one_or_none()
-        if saved_sound is None:
-            return make_response({'error': 'Sound is not found'}, 404)
-        db.session.delete(saved_sound)
-        db.session.commit()
-        return make_response('', 204)
+# class DeleteSaveSoundsById(Resource):
+#     def delete(self, id):
+        
+#         saved_sound = SaveSound.query.filter(SaveSound.sound_id == id).one_or_none()
+#         if saved_sound is None:
+#             return make_response({'error': 'Sound is not found'}, 404)
+#         db.session.delete(saved_sound)
+#         db.session.commit()
+#         return make_response('', 204)
 
 
-api.add_resource(DeleteSaveSoundsById, '/save_sounds/<int:id>')
+# api.add_resource(DeleteSaveSoundsById, '/user_saved_sounds_button/<int:id>')
 
+
+class UserSavedSoundsButton(Resource):
+    def get(self):
+        if 'logged_in_user_id' not in session:
+            return make_response({'error': 'User not logged in'}, 401)
+
+        logged_in_user_id = session['logged_in_user_id']
+        user_sounds = [sound.to_dict() for sound in SaveSound.query.filter_by(
+            user_id=logged_in_user_id).all()]
+        # print(user_sounds)
+        return make_response(user_sounds, 202)
+
+
+api.add_resource(UserSavedSoundsButton, '/user_saved_sounds_button')
 
 class UserSavedSounds(Resource):
     def get(self):
@@ -281,11 +292,24 @@ class UserSavedSounds(Resource):
             return make_response({'error': 'User not logged in'}, 401)
 
         logged_in_user_id = session['logged_in_user_id']
-        user_sounds = [sound.sound_id for sound in SaveSound.query.filter_by(
-            user_id=logged_in_user_id).all()]
-        # print(user_sounds)
-        return make_response(user_sounds, 202)
+        
+        # Query the saved sounds with their associated sound details using a join
+        saved_sounds_query = db.session.query(SaveSound, Sound).\
+            join(Sound, SaveSound.sound_id == Sound.id).\
+            filter(SaveSound.user_id == logged_in_user_id).all()
 
+        # Create a list of dictionaries containing sound details for the saved sounds
+        user_saved_sounds = [
+            {
+                'id': sound.Sound.id,
+                'sound': sound.Sound.sound,
+                'image': sound.Sound.image,
+                # Add other sound details you want to include
+            }
+            for sound in saved_sounds_query
+        ]
+        # print(user_saved_sounds)
+        return make_response(user_saved_sounds, 202)
 
 api.add_resource(UserSavedSounds, '/user_saved_sounds')
 
@@ -315,7 +339,7 @@ class Scores(Resource):
             return make_response({'error': 'User not logged in'}, 401)
 
         logged_in_user_id = session['logged_in_user_id']
-        data = request.json  # Assuming you send JSON data in the request
+        data = request.json  
         new_score = data.get('score_value')
 
         if new_score is None:

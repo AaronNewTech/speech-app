@@ -4,57 +4,64 @@ import { useAuth } from "./UseContext";
 
 function NavBar() {
   const { user, login, logout } = useAuth();
-  
-  
 
   return (
     <div>
       <nav className="navbarStyles">
-        <li>
+        <div>
           <NavLink to="/"> Home </NavLink>
-        </li>
-        <li>
+        </div>
+        <div>
           <NavLink to="/login"> Login </NavLink>
-        </li>
-        <li>
+        </div>
+        <div>
           <NavLink to="/about"> About </NavLink>
-        </li>
-        <li>
-          <NavLink to="/create-card"> Create Card </NavLink>
-        </li>
+        </div>
+
         {/* <li>
           <NavLink to="/videos"> Videos </NavLink>
         </li>
         <li>
           <NavLink to="/rock-paper-scissors-game">Rock Paper Scissors</NavLink>
         </li> */}
+
         {user ? (
-          <li>
-            <NavLink to="/favorite-cards"> Saved Cards </NavLink>
-          </li>
+          <div className="dropdown">
+            <a>My Cards</a>
+            <div>
+              <div className="dropdown-content">
+                <div>
+                  <NavLink to="/create-card"> Create Cards </NavLink>
+                </div>
+                <div>
+                  <NavLink to="/favorite-cards"> Saved Cards </NavLink>
+                </div>
+              </div>
+            </div>
+          </div>
         ) : (
           <></>
         )}
 
         {/* Dropdown menu */}
-        <li className="dropdown">
+        <div className="dropdown">
           <a>Speech Practice</a>
           <div>
-            <ul className="dropdown-content">
-              <li>
+            <div className="dropdown-content">
+              <div>
                 <NavLink to="/videos"> Video Speech Trainer </NavLink>
-              </li>
-              <li>
+              </div>
+              <div>
                 <NavLink to="/speech-practice"> First Words </NavLink>
-              </li>
-              <li>
+              </div>
+              <div>
                 <NavLink to="/rock-paper-scissors-game">
-                  Rock Paper Scissors
+                  Games
                 </NavLink>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
-        </li>
+        </div>
 
         {/* <li>
           <NavLink to="/speech-practice"> Speech Practice </NavLink>

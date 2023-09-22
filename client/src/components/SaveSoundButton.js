@@ -1,40 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "./UseContext";
+
 function SaveSoundButton({ soundId, email }) {
   const { user } = useAuth();
   const [userSavedSounds, setUserSavedSounds] = useState([]);
+  const [isSoundSaved, setIsSoundSaved] = useState(false);
 
   // Load favorited sounds from localStorage on component mount
   useEffect(() => {
-    fetchUserSavedSounds()
+    fetchUserSavedSounds();
   }, []);
 
-  // Update localStorage whenever userSavedSounds changes
-  // useEffect(() => {
-  //   localStorage.setItem("userSavedSounds", JSON.stringify(userSavedSounds));
-  // }, [userSavedSounds]);
-
+  // Fetch user's saved sounds
   const fetchUserSavedSounds = async () => {
     try {
-      const response = await fetch("/user_saved_sounds");
+      const response = await fetch("user_saved_sounds_button");
 
       if (response.ok) {
         const userSoundData = await response.json();
-        // await initPlayText(randomSoundData.sound);
-        let sounds = userSoundData
-        // console.log(userSoundData);
-        setUserSavedSounds(sounds)
-        
+        setUserSavedSounds(userSoundData);
       }
     } catch (error) {
-      console.error("An error occurred while fetching random score:", error);
+      console.error("An error occurred while fetching saved sounds:", error);
     }
   };
-  // useEffect(() => {
-  //   console.log('userSavedSounds updated:', userSavedSounds);
-  // }, [userSavedSounds]);
-  // console.log(userSavedSounds);
-  const isSoundSaved = userSavedSounds.includes(soundId);
+
+  // Update isSoundSaved whenever userSavedSounds or soundId changes
+  useEffect(() => {
+    setIsSoundSaved(
+      userSavedSounds.some((savedSound) => savedSound.sound_id === soundId)
+    );
+  }, [userSavedSounds, soundId]);
 
   const handleFavoriteClick = async () => {
     try {
@@ -46,7 +42,7 @@ function SaveSoundButton({ soundId, email }) {
         if (response.ok) {
           // Remove the sound from the user's saved sounds list in local storage
           setUserSavedSounds((prevSavedSounds) =>
-            prevSavedSounds.filter((savedSound) => savedSound !== soundId)
+            prevSavedSounds.filter((savedSound) => savedSound.sound_id !== soundId)
           );
         } else {
           console.error("Failed to remove sound from favorites on the server");
@@ -64,7 +60,7 @@ function SaveSoundButton({ soundId, email }) {
           // Add the sound to the user's saved sounds list in local storage
           setUserSavedSounds((prevSavedSounds) => [
             ...prevSavedSounds,
-            soundId,
+            { sound_id: soundId },
           ]);
         } else {
           console.error("Failed to add sound to favorites on the server");
@@ -74,15 +70,17 @@ function SaveSoundButton({ soundId, email }) {
       console.error("Error:", error);
     }
   };
-
-  // console.log(soundId);
-  // console.log(userSavedSounds);
+  // console.log(userSavedSounds)
   return (
-    // {user ? <div id="score">Score: {score}</div> : <div></div>}
-    <div>{user ?  <button onClick={handleFavoriteClick}>
-      {isSoundSaved ? "Unfavorite" : "Favorite"}
-    </button> : <div></div>}</div>
-    
+    <div>
+      {user ? (
+        <button onClick={handleFavoriteClick}>
+          {isSoundSaved ? "Unfavorite" : "Favorite"}
+        </button>
+      ) : (
+        <div></div>
+      )}
+    </div>
   );
 }
 
