@@ -4,7 +4,7 @@ import SpeechPractice from "./SpeechPractice";
 import Modal from "react-modal";
 import * as yup from "yup";
 import { useFormik } from "formik";
-
+// https://www.youtube.com/watch?v=2L1FdaIbs5M
 Modal.setAppElement("#root");
 
 const Videos = () => {
@@ -56,7 +56,7 @@ const Videos = () => {
         setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
 
         // Check if elapsed time is a multiple of 30 seconds
-        if (elapsedTime > 0 && elapsedTime % 2 === 0) {
+        if (elapsedTime > 0 && elapsedTime % 5 === 0) {
           openModal();
         }
       }, 1000); // Update elapsed time every second
