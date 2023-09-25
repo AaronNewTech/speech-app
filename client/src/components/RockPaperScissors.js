@@ -8,8 +8,8 @@ import Modal from "react-modal";
 Modal.setAppElement("#root");
 
 const RockPaperScissors = () => {
-  const [userResult, setUserResult] = useState("images/rock.png");
-  const [cpuResult, setCpuResult] = useState("images/rock.png");
+  const [userResult, setUserResult] = useState(`${process.env.PUBLIC_URL}/images/rock.png`);
+  const [cpuResult, setCpuResult] = useState(`${process.env.PUBLIC_URL}/images/rock.png`);
   const [result, setResult] = useState("Let's Play!!");
   const [activeOptionIndex, setActiveOptionIndex] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -17,15 +17,15 @@ const RockPaperScissors = () => {
   const [counter, setCounter] = useState(0);
 
   const optionImages = [
-    "images/rock.png",
-    "images/paper.png",
-    "images/scissors.png",
+    `${process.env.PUBLIC_URL}/images/rock.png`,
+    `${process.env.PUBLIC_URL}/images/paper.png`,
+    `${process.env.PUBLIC_URL}/images/scissors.png`,
   ];
 
   const handleOptionClick = (index) => {
     setActiveOptionIndex(index);
-    setUserResult("images/rock.png");
-    setCpuResult("images/rock.png");
+    setUserResult(`${process.env.PUBLIC_URL}/images/rock.png`);
+    setCpuResult(`${process.env.PUBLIC_URL}/images/rock.png`);
     setResult("Wait...");
 
     setTimeout(() => {
@@ -39,16 +39,17 @@ const RockPaperScissors = () => {
       setCpuResult(cpuChoice);
 
       const outcomes = {
-        "images/rock.pngimages/rock.png": "Draw",
-        "images/rock.pngimages/paper.png": "Cpu",
-        "images/rock.pngimages/scissors.png": "User",
-        "images/paper.pngimages/rock.png": "User",
-        "images/paper.pngimages/paper.png": "Draw",
-        "images/paper.pngimages/scissors.png": "Cpu",
-        "images/scissors.pngimages/rock.png": "Cpu",
-        "images/scissors.pngimages/paper.png": "User",
-        "images/scissors.pngimages/scissors.png": "Draw",
+        [`${process.env.PUBLIC_URL}/images/rock.png${process.env.PUBLIC_URL}/images/rock.png`]: "Draw",
+        [`${process.env.PUBLIC_URL}/images/rock.png${process.env.PUBLIC_URL}/images/paper.png`]: "Cpu",
+        [`${process.env.PUBLIC_URL}/images/rock.png${process.env.PUBLIC_URL}/images/scissors.png`]: "User",
+        [`${process.env.PUBLIC_URL}/images/paper.png${process.env.PUBLIC_URL}/images/rock.png`]: "User",
+        [`${process.env.PUBLIC_URL}/images/paper.png${process.env.PUBLIC_URL}/images/paper.png`]: "Draw",
+        [`${process.env.PUBLIC_URL}/images/paper.png${process.env.PUBLIC_URL}/images/scissors.png`]: "Cpu",
+        [`${process.env.PUBLIC_URL}/images/scissors.png${process.env.PUBLIC_URL}/images/rock.png`]: "Cpu",
+        [`${process.env.PUBLIC_URL}/images/scissors.png${process.env.PUBLIC_URL}/images/paper.png`]: "User",
+        [`${process.env.PUBLIC_URL}/images/scissors.png${process.env.PUBLIC_URL}/images/scissors.png`]: "Draw",
       };
+      
 
       const outcomeKey = `${userChoice}${cpuChoice}`;
       const gameResult = outcomes[outcomeKey] || "Invalid choice";
