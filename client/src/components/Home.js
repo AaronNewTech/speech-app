@@ -13,7 +13,7 @@ function Home() {
             id="speech-trainer-main-logo"
             src={
               process.env.PUBLIC_URL + "/images/speech-trainer-main-logo.png"
-            }
+            } 
             alt="speech-trainer-logo"
           />
         </div>

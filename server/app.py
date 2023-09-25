@@ -34,6 +34,8 @@ app.secret_key = 'your_secret_key_here'
 # app = Flask(__name__)
 # api = Api(app)
 
+
+
 @app.route('/')
 def index():
     return '<h1>Speech Trainer Server</h1>'
