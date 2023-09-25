@@ -27,7 +27,7 @@ function Home() {
         <div className="column">
           <div>
             <img
-              id="home-level-up"
+              id="home-level-up-image"
               src={process.env.PUBLIC_URL + "/images/HomePageImages/Home2.png"}
               alt="level-up"
             />
