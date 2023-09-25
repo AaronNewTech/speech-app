@@ -2,9 +2,10 @@
 
 
 # Remote library imports
-from flask import request, make_response, jsonify, session, redirect, url_for
-from flask_restful import Resource
-import bcrypt
+from flask import Flask, request, make_response, jsonify, session, redirect, url_for, send_from_directory
+from flask_restful import Resource, Api
+import bcrypt, os
+
 
 # Local imports
 from config import app, db, api
@@ -14,6 +15,20 @@ from models import db, User, Sound, SaveSound, Score
 app.secret_key = 'your_secret_key_here'
 # Views go here!
 
+
+# app = Flask (__name__)
+
+# react_folder = 'client'
+# directory= os.getcwd()+ f'/{react_folder}/build/static'
+# @app.route('/')
+# def index():
+
+#     path= os.getcwd()+ f'/{react_folder}/build'
+#     print (path)
+#     return send_from_directory(directory=path,path='index.html')
+
+# app = Flask(__name__)
+# api = Api(app)
 
 @app.route('/')
 def index():
@@ -379,8 +394,7 @@ class UserScore(Resource):
 
         logged_in_user_id = session['logged_in_user_id']
         user_score = Score.query.filter_by(user_id=logged_in_user_id).first()
-        # print("score", user_score.score)
-        # score.to_dict() for sound in SaveSound.query.filter_by(user_id=logged_in_user_id).firstl()
+        
 
         response_data = {
             'user_id': user_score.user_id,  # Include any other relevant data

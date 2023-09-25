@@ -68,7 +68,7 @@ const Videos = () => {
     return () => {
       clearInterval(intervalId); // Cleanup: Clear the timer when the component unmounts
     };
-  }, [isPlaying, elapsedTime]);
+  }, [isPlaying, elapsedTime, openModal]);
 
   const closeModal = () => {
     setShowModal(false);

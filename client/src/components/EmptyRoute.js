@@ -8,7 +8,7 @@ function EmptyRoute() {
 
   useEffect(() => {
     navigate("/speech-practice");
-  }, []);
+  }, [navigate]);
 
   return (
     <div>

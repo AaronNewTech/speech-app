@@ -6,7 +6,7 @@ function About() {
     <div id="about-container">
       <img
         id="about-image-1"
-        src="/images/AboutPageImages/About1.png"
+        src={process.env.PUBLIC_URL + "/images/AboutPageImages/About1.png"}
         alt="about"
       ></img>
       <div className="instructions">
@@ -42,7 +42,7 @@ function About() {
         </p>
         <img
         id="about-image-2"
-        src="/images/AboutPageImages/About2.png"
+        src={process.env.PUBLIC_URL + "/images/AboutPageImages/About2.png"}
         alt="about"
       ></img>
         {/* <h1>Speech Trainer</h1>

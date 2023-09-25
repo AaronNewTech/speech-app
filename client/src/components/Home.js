@@ -11,14 +11,14 @@ function Home() {
         <div className="column">
           <img
             id="speech-trainer-main-logo"
-            src="/images/speech-trainer-main-logo.png"
+            src={process.env.PUBLIC_URL +"/images/speech-trainer-main-logo.png"}
             alt="speech-trainer-logo"
           />
         </div>
         <div className="column">
           <img
             id="home-kids-image-1"
-            src="/images/HomePageImages/Home4.png"
+            src={process.env.PUBLIC_URL + "/images/HomePageImages/Home4.png"}
             alt="kids"
           />
         </div>
@@ -26,14 +26,14 @@ function Home() {
           <div>
             <img
               id="home-level-up"
-              src="/images/HomePageImages/Home2.png"
+              src={process.env.PUBLIC_URL + "/images/HomePageImages/Home2.png"}
               alt="level-up"
             />
             {user ? (
               <NavLink to={"/login"}>
               <img
                 id="logout-image"
-                src="/images/HomePageImages/HomeLogout.png"
+                src={process.env.PUBLIC_URL + "/images/HomePageImages/HomeLogout.png"}
                 alt="logout"
               />
             </NavLink>
@@ -41,7 +41,7 @@ function Home() {
               <NavLink to={"/login"}>
                 <img
                   id="login-image"
-                  src="/images/HomePageImages/HomeLogin.png"
+                  src={process.env.PUBLIC_URL + "/images/HomePageImages/HomeLogin.png"}
                   alt="login"
                 />
               </NavLink>
@@ -55,17 +55,17 @@ function Home() {
         <div className="row-2">
           <img
             id="home-welcome-image"
-            src="/images/HomePageImages/Home5.png"
+            src={ process.env.PUBLIC_URL + "/images/HomePageImages/Home5.png"}
             alt="home-welcome"
           />
           <img
             id="home-wind-image"
-            src="/images/HomePageImages/Home6.png"
+            src={process.env.PUBLIC_URL + "/images/HomePageImages/Home6.png"}
             alt="home-wind"
           />
           <img
             id="home-stars-image"
-            src="/images/HomePageImages/Home7.png"
+            src={process.env.PUBLIC_URL +"/images/HomePageImages/Home7.png"}
             alt="home-stars"
           />
         </div>
@@ -75,7 +75,7 @@ function Home() {
       <div className="row-4">
             <img
               id="home-learning-center-image"
-              src="/images/HomePageImages/Home8.png"
+              src={process.env.PUBLIC_URL + "/images/HomePageImages/Home8.png"}
               alt="home-learning-center"
             />
           </div>
@@ -84,7 +84,7 @@ function Home() {
             <NavLink to="/videos">
               <img
                 id="video-speech-trainer-logo"
-                src="/images/video-speech-trainer-logo.png"
+                src={process.env.PUBLIC_URL + "/images/video-speech-trainer-logo.png"}
                 alt="Video Speech Trainer"
               />
             </NavLink>
@@ -93,7 +93,7 @@ function Home() {
             <NavLink to="/speech-practice">
               <img
                 id="first-words-logo"
-                src="/images/first-words-logo.png"
+                src={process.env.PUBLIC_URL + "/images/first-words-logo.png"}
                 alt="First Words"
               />
             </NavLink>
@@ -102,7 +102,7 @@ function Home() {
             <NavLink to="/rock-paper-scissors-game">
               <img
                 id="games-logo"
-                src="/images/HomePageImages/games-logo.png"
+                src={process.env.PUBLIC_URL + "/images/HomePageImages/games-logo.png"}
                 alt="Rock Paper Scissors"
               />
             </NavLink>
