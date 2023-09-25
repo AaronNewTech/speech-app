@@ -196,7 +196,6 @@ button:hover {
   padding-top: 6%;
   position: relative;
   overflow: hidden;
-  /* margin-bottom: -50%; */
 }
 
 #about-image-1 {
@@ -220,9 +219,7 @@ button:hover {
 
 #about-image-2 {
   width: 80%;
-  /* padding-top: -30%; */
   position: sticky;
-  /* right: 30%; */
   transform: translateX(-25%) translateY(-25%) rotate(330deg);
   max-width: 70%;
   z-index: -10;
@@ -379,7 +376,6 @@ body {
   background-size: cover;
   background-position: center top;
 }
-
 
 .voice-test {
   padding-top: 50px;
