@@ -8,7 +8,6 @@ import CreateCard from "./CreateCard";
 import RockPaperScissors from "./RockPaperScissors";
 import SpeechPractice from "./SpeechPractice";
 import UseContext from "./UseContext";
-import { useAuth } from "./UseContext";
 import About from "./About";
 import SavedCards from "./SavedCards";
 import EmptyRoute from "./EmptyRoute";

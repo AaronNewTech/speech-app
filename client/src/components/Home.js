@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import NavBar from "./NavBar";
-import { Link, useNavigate, NavLink } from "react-router-dom";
+import React from "react";
+import { NavLink } from "react-router-dom";
 import { useAuth } from "./UseContext";
 
 function Home() {
@@ -20,22 +19,22 @@ function Home() {
           <img
             id="home-kids-image-1"
             src="/images/HomePageImages/Home4.png"
-            alt="kids-image"
+            alt="kids"
           />
         </div>
         <div className="column">
           <div>
             <img
-              id="home-level-up-image"
+              id="home-level-up"
               src="/images/HomePageImages/Home2.png"
-              alt="level-up-image"
+              alt="level-up"
             />
             {user ? (
               <NavLink to={"/login"}>
               <img
                 id="logout-image"
                 src="/images/HomePageImages/HomeLogout.png"
-                alt="logout-image"
+                alt="logout"
               />
             </NavLink>
             ) : (
@@ -43,7 +42,7 @@ function Home() {
                 <img
                   id="login-image"
                   src="/images/HomePageImages/HomeLogin.png"
-                  alt="login-image"
+                  alt="login"
                 />
               </NavLink>
             )}
@@ -57,17 +56,17 @@ function Home() {
           <img
             id="home-welcome-image"
             src="/images/HomePageImages/Home5.png"
-            alt="home-welcome-image"
+            alt="home-welcome"
           />
           <img
             id="home-wind-image"
             src="/images/HomePageImages/Home6.png"
-            alt="home-wind-image"
+            alt="home-wind"
           />
           <img
             id="home-stars-image"
             src="/images/HomePageImages/Home7.png"
-            alt="home-stars-image"
+            alt="home-stars"
           />
         </div>
       </div>
@@ -77,7 +76,7 @@ function Home() {
             <img
               id="home-learning-center-image"
               src="/images/HomePageImages/Home8.png"
-              alt="home-learning-center-image"
+              alt="home-learning-center"
             />
           </div>
         <div className="row-3">

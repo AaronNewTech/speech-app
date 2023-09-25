@@ -126,7 +126,7 @@ const SpeechPractice = ({ email, setEmail }) => {
   const {
     transcript,
     listening,
-    resetTranscript,
+    // resetTranscript,
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
 
@@ -188,10 +188,10 @@ const SpeechPractice = ({ email, setEmail }) => {
     navigate("/empty-route");
   };
 
-  const handleTextareaChange = (event) => {
-    // Update the transcript when the textarea value changes
-    resetTranscript(); // Reset the transcript since it's controlled
-  };
+  // const handleTextareaChange = (event) => {
+  //   // Update the transcript when the textarea value changes
+  //   resetTranscript(); // Reset the transcript since it's controlled
+  // };
 
   return (
     <div className="voice-test">

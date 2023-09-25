@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import * as yup from "yup";
 import { useFormik } from "formik";
-import NavBar from "./NavBar";
 import FlashCard from "./FlashCard";
 
 function CreateCard() {
@@ -103,6 +101,7 @@ function CreateCard() {
       });
 
       if (response.ok) {
+        // eslint-disable-next-line
         const sound = await response.json();
         // addSound(sound);
         formik.resetForm();
@@ -117,7 +116,6 @@ function CreateCard() {
   // console.log(sounds)
   return (
     <div>
-
       <form onSubmit={formik.handleSubmit} className="new-sound-form">
         <label htmlFor="email">Sound: </label>
         <input
@@ -146,7 +144,7 @@ function CreateCard() {
               </p>
             ))
           : null}
-        <input  id="add-sound-button" type="submit" value="Create Sound" />
+        <input id="add-sound-button" type="submit" value="Create Sound" />
       </form>
       <h2 id="flash-card-library">Flash Card Library</h2>
       <div className="cards-container">

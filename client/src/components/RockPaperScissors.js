@@ -1,12 +1,6 @@
 // initial code source
 // https://www.codingnepalweb.com/rock-paper-scissors-game-javascript/
 import React, { useState, useEffect } from "react";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
-import Speech from "speak-tts";
-import NavBar from "./NavBar";
-import FlashCard from "./FlashCard";
 import SpeechPractice from "./SpeechPractice";
 import ReactModal from "react-modal";
 import Modal from "react-modal";

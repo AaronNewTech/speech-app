@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import NavBar from "./NavBar";
 import { useAuth } from "./UseContext"; // Import the useAuth hook
 
 function LoginForm({ email, setEmail }) {

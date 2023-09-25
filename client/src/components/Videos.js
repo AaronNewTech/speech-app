@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import YouTube from "react-youtube";
 import SpeechPractice from "./SpeechPractice";
 import Modal from "react-modal";
+// eslint-disable-next-line
 import * as yup from "yup";
 import { useFormik } from "formik";
 // https://www.youtube.com/watch?v=2L1FdaIbs5M
@@ -9,13 +10,13 @@ Modal.setAppElement("#root");
 
 const Videos = () => {
   // const [videoUrl, setVideoUrl] = useState("Wm4R8d0d8kU")
-  const videoId = "Wm4R8d0d8kU"; 
+  const videoId = "Wm4R8d0d8kU";
+  // eslint-disable-next-line
   const [formErrors, setFormErrors] = useState([]);
   const [player, setPlayer] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  const [correct, setCorrect] = useState(false);
 
   const opts = {
     height: "630",
@@ -95,6 +96,7 @@ const Videos = () => {
       });
 
       if (response.ok) {
+        // eslint-disable-next-line
         const video = await response.json();
         // addSound(sound);
         formik.resetForm();
@@ -153,7 +155,7 @@ const Videos = () => {
             contentLabel="Example Modal"
             onRequestClose={closeModal}
           >
-            <SpeechPractice correct={correct} />
+            <SpeechPractice />
           </Modal>
         )}
       </div>

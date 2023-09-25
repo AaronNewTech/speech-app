@@ -38,7 +38,8 @@ class Register(Resource):
             if not password:
                 return 'Missing password', 400
 
-            hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(rounds=12))
+            hashed = bcrypt.hashpw(password.encode(
+                'utf-8'), bcrypt.gensalt(rounds=12))
             user = User(email=email, hash=hashed, password=password)
 
             db.session.add(user)
@@ -218,7 +219,8 @@ class SaveSounds(Resource):
         if 'logged_in_user_id' in session:
             logged_in_user_id = session['logged_in_user_id']
 
-            user_sound = SaveSound(user_id=logged_in_user_id, sound_id=sound_id)
+            user_sound = SaveSound(
+                user_id=logged_in_user_id, sound_id=sound_id)
 
             try:
                 db.session.add(user_sound)
@@ -235,7 +237,6 @@ class SaveSounds(Resource):
 
 
 api.add_resource(SaveSounds, '/saved_sounds')
-
 
 
 class GetUserId(Resource):
@@ -256,7 +257,7 @@ api.add_resource(GetUserId, '/getUserId')
 
 # class DeleteSaveSoundsById(Resource):
 #     def delete(self, id):
-        
+
 #         saved_sound = SaveSound.query.filter(SaveSound.sound_id == id).one_or_none()
 #         if saved_sound is None:
 #             return make_response({'error': 'Sound is not found'}, 404)
@@ -282,13 +283,14 @@ class UserSavedSoundsButton(Resource):
 
 api.add_resource(UserSavedSoundsButton, '/user_saved_sounds_button')
 
+
 class UserSavedSounds(Resource):
     def get(self):
         if 'logged_in_user_id' not in session:
             return make_response({'error': 'User not logged in'}, 401)
 
         logged_in_user_id = session['logged_in_user_id']
-        
+
         # Query the saved sounds with their associated sound details using a join
         saved_sounds_query = db.session.query(SaveSound, Sound).\
             join(Sound, SaveSound.sound_id == Sound.id).\
@@ -306,6 +308,7 @@ class UserSavedSounds(Resource):
         ]
         # print(user_saved_sounds)
         return make_response(user_saved_sounds, 202)
+
 
 api.add_resource(UserSavedSounds, '/user_saved_sounds')
 
@@ -335,7 +338,7 @@ class Scores(Resource):
             return make_response({'error': 'User not logged in'}, 401)
 
         logged_in_user_id = session['logged_in_user_id']
-        data = request.json  
+        data = request.json
         new_score = data.get('score_value')
 
         if new_score is None:

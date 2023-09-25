@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "./UseContext";
 
 function NavBar() {
-  const { user, login, logout } = useAuth();
+  const { user } = useAuth();
 
   return (
     <div id="navbar-container" >
@@ -21,7 +21,7 @@ function NavBar() {
 
           {user ? (
             <div className="dropdown">
-              <a>My Cards</a>
+              <NavLink>My Cards</NavLink>
               <div>
                 <div className="dropdown-content">
                   <div>
@@ -39,7 +39,7 @@ function NavBar() {
 
           {/* Dropdown menu */}
           <div className="dropdown">
-            <a>Speech Practice</a>
+            <NavLink>Speech Practice</NavLink>
             <div>
               <div className="dropdown-content">
                 <div>

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import NavBar from "./NavBar";
+import React from "react";
+
 
 function About() {
   return (
