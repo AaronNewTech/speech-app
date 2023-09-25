@@ -26,10 +26,6 @@ div {
   padding-left: 5%;
 }
 
-#about-container {
-  padding-top: 6%;
-}
-
 #navbar-container {
   padding-bottom: 5%;
 }
@@ -196,6 +192,13 @@ button:hover {
   box-shadow: 0 0 50px rgb(255, 155, 236);
 }
 
+#about-container {
+  padding-top: 6%;
+  position: relative;
+  overflow: hidden;
+  /* margin-bottom: -50%; */
+}
+
 #about-image-1 {
   width: 80%;
   padding-top: -30%;
@@ -204,6 +207,15 @@ button:hover {
   transform: translateX(75%) translateY(-45%) rotate(10deg);
   max-width: 70%;
   z-index: -10;
+}
+
+.instructions {
+  padding-left: 5%;
+  padding-right: 5%;
+  font-weight: normal;
+  z-index: 2;
+  transform: translateY(-50%);
+  margin-bottom: -50%;
 }
 
 #about-image-2 {
@@ -233,37 +245,26 @@ button:hover {
 
 #home-kids-image-1 {
   transform: translateX(-25%) translateY(2%);
-  /* padding-left: -30%; */
   width: 190%;
 }
 
 #home-level-up-image {
-  /* padding-top: 10%; */
   width: 100%;
   max-width: 150%;
 }
 
-#login-image, #logout-image {
-  /* padding-left: 20%; */
+#login-image,
+#logout-image {
   transform: translateX(35%) translateY(-90%);
   width: 60%;
-  max-width: 150%; /* Set the initial max-width */
-
-  /* Add a transition to smoothly change the size */
-  transition: max-width 0.3s ease-in-out;
-}
-
-/* #login-image:hover {
   max-width: 150%;
-} */
-
-#line-image {
-  margin-top: 0%;
+  transition: max-width 0.3s ease-in-out;
 }
 
 #home-page-2 {
   background-color: rgb(255, 195, 65);
   position: relative;
+  padding-bottom: 35%;
 }
 
 .row-2 {
@@ -273,37 +274,47 @@ button:hover {
 
 #home-welcome-image {
   width: 100%;
+  position: absolute;
   z-index: 2;
 }
 
 #home-wind-image {
   height: 40%;
   width: 40%;
-  transform: translateX(-155%) translateY(150%);
+  transform: translateX(80%) translateY(170%);
 }
 
 #home-stars-image {
   height: 35%;
   width: 35%;
-  transform: translateX(-415%) translateY(-0%);
+  transform: translateX(-120%) translateY(-0%);
   max-width: 100%;
   transition: max-width 0.3s ease-in-out;
   z-index: 10;
 }
 
 #home-page-3 {
-  padding-top: -40%;
+  padding-top: 0%;
 }
 
 .column-2 {
   float: left;
   width: 33.33%;
-  /* padding: 5px; */
 }
 
 .row-3 {
   display: flex;
   width: 100%;
+}
+
+.row-4 {
+  width: 100%;
+  position: relative;
+}
+
+#home-learning-center-image {
+  width: 100%;
+  position: absolute;
 }
 
 #rps-body {
@@ -339,16 +350,6 @@ button:hover {
   transform: translateX(15%) translateY(60%);
 }
 
-.row-4 {
-  width: 100%;
-  position: relative;
-}
-
-#home-learning-center-image {
-  width: 100%;
-  position: absolute;
-}
-
 /* * {
   box-sizing: border-box;
 } */
@@ -379,13 +380,6 @@ body {
   background-position: center top;
 }
 
-.instructions {
-  padding-left: 40px;
-  padding-right: 40px;
-  font-weight: normal;
-  z-index: 2;
-  transform: translateY(-50%);
-}
 
 .voice-test {
   padding-top: 50px;
