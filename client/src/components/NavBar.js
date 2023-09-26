@@ -6,7 +6,7 @@ function NavBar() {
   const { user } = useAuth();
 
   return (
-    <div id="navbar-container" >
+    <div id="navbar-container">
       <nav className="navbarStyles">
         <div className="navbar-links">
           <div>
@@ -59,21 +59,21 @@ function NavBar() {
           <NavLink to="https://www.facebook.com/">
             <img
               id="facebook"
-              src={process.env.PUBLIC_URL + '/images/Social/facebook.png'} 
+              src={process.env.PUBLIC_URL + "/images/Social/facebook.png"}
               alt="facebook-icon"
             />
           </NavLink>
           <NavLink to="https://instagram.com/">
             <img
               id="instagram"
-              src={process.env.PUBLIC_URL + '/images/Social/instagram.png'} 
+              src={process.env.PUBLIC_URL + "/images/Social/instagram.png"}
               alt="instagram-icon"
             />
           </NavLink>
           <NavLink to="https://twitter.com">
             <img
               id="twitter"
-              src={process.env.PUBLIC_URL + '/images/Social/twitter.png'} 
+              src={process.env.PUBLIC_URL + "/images/Social/twitter.png"}
               alt="twitter-icon"
             />
           </NavLink>
