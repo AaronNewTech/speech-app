@@ -225,6 +225,11 @@ button:hover {
   display: flex;
 }
 
+.home-page-1 {
+  width: 100%;
+  position: relative;
+}
+
 #speech-trainer-main-logo {
   transform: translateX(-8%);
   padding-top: 15%;
@@ -237,19 +242,17 @@ button:hover {
   width: 190%;
 }
 
-#home-level-up-image {
-  /* padding-top: 10%; */
+#home-level-up {
   width: 100%;
-  max-width: 150%;
+  max-width: 100%;
 }
 
-#login-image, #logout-image {
+#login-image,
+#logout-image {
   /* padding-left: 20%; */
   transform: translateX(35%) translateY(-90%);
   width: 60%;
-  max-width: 150%; /* Set the initial max-width */
-
-  /* Add a transition to smoothly change the size */
+  max-width: 150%;
   transition: max-width 0.3s ease-in-out;
 }
 
@@ -261,14 +264,21 @@ button:hover {
   margin-top: 0%;
 }
 
-#home-page-2 {
+.home-page-2 {
   background-color: rgb(255, 195, 65);
   position: relative;
+  margin-bottom: 0%;
+  padding-bottom: -40%;
+  width: 100%;
+  height: 40%;
+  overflow: hidden;
 }
 
 .row-2 {
-  display: flex;
+  /* display: flex; */
   width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 #home-welcome-image {
@@ -279,20 +289,30 @@ button:hover {
 #home-wind-image {
   height: 40%;
   width: 40%;
-  transform: translateX(-155%) translateY(150%);
+  transform: translateX(90%) translateY(-90%);
+  z-index: 5;
 }
 
 #home-stars-image {
   height: 35%;
   width: 35%;
-  transform: translateX(-415%) translateY(-0%);
+  transform: translateX(-130%) translateY(-300%);
   max-width: 100%;
   transition: max-width 0.3s ease-in-out;
   z-index: 10;
 }
 
-#home-page-3 {
-  padding-top: -40%;
+.home-page-3 {
+  /* padding-top: -40%; */
+  background-color: rgba(244, 140, 12, 0.8);
+  margin-top: -20%;
+  z-index: 20;
+}
+
+.home-page-3 ::after {
+  content: "";
+  display: block;
+  margin-bottom: -2.5em;
 }
 
 .column-2 {
@@ -304,6 +324,7 @@ button:hover {
 .row-3 {
   display: flex;
   width: 100%;
+  background-color: rgba(244, 140, 12, 0.8);
 }
 
 #rps-body {
@@ -342,11 +363,13 @@ button:hover {
 .row-4 {
   width: 100%;
   position: relative;
+  background-color: rgba(244, 140, 12, 0.8);
 }
 
 #home-learning-center-image {
   width: 100%;
   position: absolute;
+  background-color: rgba(244, 140, 12, 0.8);
 }
 
 /* * {

@@ -61,7 +61,9 @@ function LoginForm({ email, setEmail }) {
     <div id="login-container">
       {user ? (
         <>
-          <p id="logged-in-message" >Welcome back, {email}! You are now logged in.</p>
+          <p id="logged-in-message">
+            Welcome back, {email}! You are now logged in.
+          </p>
           <button id="logout-button" onClick={handleLogout}>
             Logout
           </button>
@@ -92,12 +94,17 @@ function LoginForm({ email, setEmail }) {
         </form>
       )}
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <div id="create-account-container">
-        <p id="create-account-text">Not Registered?</p>
-        <a id="create-account-link" href="http://localhost:3000/create-account">
-          Create an account
-        </a>
-      </div>
+      {user ? null : (
+        <div id="create-account-container">
+          <p id="create-account-text">Not Registered?</p>
+          <a
+            id="create-account-link"
+            href="http://localhost:3000/create-account"
+          >
+            Create an account
+          </a>
+        </div>
+      )}
     </div>
   );
 }
