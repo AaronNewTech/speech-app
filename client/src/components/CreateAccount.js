@@ -12,7 +12,7 @@ function CreateUser({ loggedIn, setLoggedIn }) {
       password: "",
     },
     onSubmit: (values) => {
-      fetch("/create_account", {
+      fetch("https://arnhsmith.pythonanywhere.com/create_account", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

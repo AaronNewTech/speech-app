@@ -32,7 +32,7 @@ const SpeechPractice = ({ email, setEmail }) => {
 
   const fetchMaxSoundId = async () => {
     try {
-      const response = await fetch("/get_last_sound_id");
+      const response = await fetch("https://arnhsmith.pythonanywhere.com/get_last_sound_id");
       // console.log(response)
       if (response.ok) {
         const maxSoundData = await response.json();
@@ -55,7 +55,7 @@ const SpeechPractice = ({ email, setEmail }) => {
       const randomSoundId =
         Math.floor(Math.random() * (maxSoundId - minSoundId + 1)) + minSoundId;
       // console.log("random", randomSoundId);
-      const response = await fetch(`/sounds/${randomSoundId}`);
+      const response = await fetch(`https://arnhsmith.pythonanywhere.com/sounds/${randomSoundId}`);
 
       if (response.ok) {
         randomSoundData = await response.json();
@@ -71,7 +71,7 @@ const SpeechPractice = ({ email, setEmail }) => {
 
   const fetchUserScore = async () => {
     try {
-      const response = await fetch("/user_score");
+      const response = await fetch("https://arnhsmith.pythonanywhere.com/user_score");
 
       if (response.ok) {
         const userScoreData = await response.json();
@@ -138,7 +138,7 @@ const SpeechPractice = ({ email, setEmail }) => {
     const newScore = score + 1;
 
     try {
-      const response = await fetch("/scores", {
+      const response = await fetch("https://arnhsmith.pythonanywhere.com/scores", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -185,7 +185,7 @@ const SpeechPractice = ({ email, setEmail }) => {
   }
 
   const handleNextCard = () => {
-    navigate("/empty-route");
+    navigate("empty-route");
   };
 
   // const handleTextareaChange = (event) => {

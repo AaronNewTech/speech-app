@@ -14,37 +14,11 @@ from config import app, db, api
 from models import db, User, Sound, SaveSound, Score
 
 app.secret_key = 'your_secret_key_here'
-# Views go here!
-
-
-# app = Flask(__name__)
-
-# react_folder = 'client'
-# directory = os.getcwd() + f'/{react_folder}/build/static'
-
-
-# @app.route('/')
-# def index():
-
-#     path = os.getcwd() + f'/{react_folder}/build'
-#     print(path)
-#     return send_from_directory(directory=path, path='index.html')
-
-
-# app = Flask(__name__)
-# api = Api(app)
 
 
 @app.route('/')
 def index():
     return '<h1>Speech Trainer Server</h1>'
-
-
-# class HomePage(Resource):
-#     def get(self):
-#         return '<h1>Speech Trainer Server</h1>'
-# api.add_resource(HomePage, '/')
-
 
 class Register(Resource):
     def post(self):
@@ -66,7 +40,7 @@ class Register(Resource):
             db.session.commit()
             return f'Welcome {email}', 201
         except Exception as e:
-            # Log the error for debugging
+            
             print(f"Error: {str(e)}")
             return 'Internal Server Error', 500
 

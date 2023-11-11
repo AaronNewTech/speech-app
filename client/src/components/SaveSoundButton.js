@@ -14,7 +14,7 @@ function SaveSoundButton({ soundId, email }) {
   // Fetch user's saved sounds
   const fetchUserSavedSounds = async () => {
     try {
-      const response = await fetch("user_saved_sounds_button");
+      const response = await fetch("https://arnhsmith.pythonanywhere.com/user_saved_sounds_button");
 
       if (response.ok) {
         const userSoundData = await response.json();
@@ -36,7 +36,7 @@ function SaveSoundButton({ soundId, email }) {
     try {
       if (isSoundSaved) {
         // If already favorited, send a DELETE request to remove it from favorites on the server
-        const response = await fetch(`/user_saved_sounds/${soundId}`, {
+        const response = await fetch(`https://arnhsmith.pythonanywhere.com/user_saved_sounds/${soundId}`, {
           method: "DELETE",
         });
         if (response.ok) {
@@ -49,7 +49,7 @@ function SaveSoundButton({ soundId, email }) {
         }
       } else {
         // If not favorited, send a POST request to add it to favorites on the server
-        const response = await fetch("/saved_sounds", {
+        const response = await fetch("https://arnhsmith.pythonanywhere.com/saved_sounds", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

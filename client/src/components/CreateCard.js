@@ -17,7 +17,7 @@ function CreateCard() {
 
   const fetchAllSounds = async () => {
     try {
-      const response = await fetch("/created_sounds");
+      const response = await fetch("https://arnhsmith.pythonanywhere.com/created_sounds");
 
       if (response.ok) {
         const allSounds = await response.json();
@@ -32,7 +32,7 @@ function CreateCard() {
 
   const handleDelete = async (soundId) => {
     try {
-      const response = await fetch(`/sounds/${soundId}`, {
+      const response = await fetch(`https://arnhsmith.pythonanywhere.com/sounds/${soundId}`, {
         method: "DELETE",
       });
 
@@ -58,7 +58,7 @@ function CreateCard() {
   };
 
   const handleUpdate = (soundId) => {
-    fetch(`http://localhost:3000/sounds/${soundId}`, {
+    fetch(`https://arnhsmith.pythonanywhere.com/sounds/${soundId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -92,7 +92,7 @@ function CreateCard() {
         image: values.image,
       };
 
-      const response = await fetch("/create_card", {
+      const response = await fetch("https://arnhsmith.pythonanywhere.com/create_card", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -10,7 +10,7 @@ function SavedCards() {
 
   const fetchAllSounds = async () => {
     try {
-      const response = await fetch("/user_saved_sounds");
+      const response = await fetch("https://arnhsmith.pythonanywhere.com/user_saved_sounds");
 
       if (response.ok) {
         const allSounds = await response.json();
@@ -24,7 +24,6 @@ function SavedCards() {
     }
   };
 
-  console.log();
   return (
     <div id="flash-card-library">
       <h2 >Flash Card Library</h2>
