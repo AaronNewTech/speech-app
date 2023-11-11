@@ -185,7 +185,7 @@ const SpeechPractice = ({ email, setEmail }) => {
   }
 
   const handleNextCard = () => {
-    navigate("empty-route");
+    navigate("https://aaronnewtech.github.io/empty-route");
   };
 
   // const handleTextareaChange = (event) => {
