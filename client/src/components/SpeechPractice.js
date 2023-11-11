@@ -13,7 +13,7 @@ const SpeechPractice = ({ email, setEmail }) => {
   const [loading, setLoading] = useState(true);
   const [hasSpokenGreatJob, setHasSpokenGreatJob] = useState(false);
   const [score, setScore] = useState(() => {
-    // Initialize score from localStorage, or 0 if not present
+    // initializes score from localStorage, or 0 if not present
     const storedScore = localStorage.getItem("score");
     return storedScore ? parseInt(storedScore, 10) : 0;
   });
@@ -30,16 +30,12 @@ const SpeechPractice = ({ email, setEmail }) => {
     }
   }, []);
 
+  // fetches the max sound id from the database
   const fetchMaxSoundId = async () => {
     try {
       const response = await fetch("/get_last_sound_id");
-      // console.log(response)
       if (response.ok) {
         const maxSoundData = await response.json();
-        // console.log(maxSoundData)
-        // let id = maxSoundData;
-        // setMaxSoundId(id);
-        // console.log(maxSoundId)
         fetchRandomSound(maxSoundData);
       } else {
         console.error("Failed to fetch max sound ID");
@@ -49,12 +45,12 @@ const SpeechPractice = ({ email, setEmail }) => {
     }
   };
 
+  // fetches random flash card data to be displayed
   const fetchRandomSound = async (maxSoundId) => {
     let randomSoundData = null;
     while (!randomSoundData) {
       const randomSoundId =
         Math.floor(Math.random() * (maxSoundId - minSoundId + 1)) + minSoundId;
-      // console.log("random", randomSoundId);
       const response = await fetch(`/sounds/${randomSoundId}`);
 
       if (response.ok) {
@@ -69,6 +65,7 @@ const SpeechPractice = ({ email, setEmail }) => {
     }
   };
 
+  // fetches the user's score from the database
   const fetchUserScore = async () => {
     try {
       const response = await fetch("/user_score");
@@ -77,7 +74,7 @@ const SpeechPractice = ({ email, setEmail }) => {
         const userScoreData = await response.json();
         const score = userScoreData.score;
 
-        // Update the score state and localStorage
+        // update the score state and localStorage
         setScore(score);
         localStorage.setItem("score", score.toString());
       }
@@ -86,6 +83,7 @@ const SpeechPractice = ({ email, setEmail }) => {
     }
   };
 
+  // plays the sound once the sound data has been loaded
   const initPlayText = async (sound) => {
     if (sound) {
       speech.speak({
@@ -94,16 +92,16 @@ const SpeechPractice = ({ email, setEmail }) => {
     }
   };
 
+  // creates new speech object
   const speech = new Speech();
   speech
     .init()
-    .then((data) => {
-      // The "data" object contains the list of available voices and the voice synthesis params
-    })
+    .then((data) => {})
     .catch((e) => {
       console.error("An error occurred while initializing:", e);
     });
 
+  // handles playing of text to audio production
   const handlePlayText = (event) => {
     if (randomSound) {
       speech
@@ -119,10 +117,12 @@ const SpeechPractice = ({ email, setEmail }) => {
     }
   };
 
+  // handles recording of audio when record button is clicked
   async function handleClick(event) {
     await SpeechRecognition.startListening();
   }
 
+  // handles transcript for recording user speech
   const {
     transcript,
     listening,
@@ -130,10 +130,12 @@ const SpeechPractice = ({ email, setEmail }) => {
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
 
+  // check for brower support
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
   }
 
+  // increases the score when a word is spoken correctly
   const handleScoreChange = async (event) => {
     const newScore = score + 1;
 
@@ -163,6 +165,7 @@ const SpeechPractice = ({ email, setEmail }) => {
 
   let result = null;
 
+  // conditional to check if the word was said correctly
   if (transcript.toLowerCase()) {
     if (transcript.toLowerCase() === randomSound.sound) {
       result = "Correct";
@@ -173,6 +176,7 @@ const SpeechPractice = ({ email, setEmail }) => {
     result = "";
   }
 
+  // conditional to check if the word was said correctly to play "Great job" and increase the score
   if (
     randomSound &&
     transcript.toLowerCase() === randomSound.sound &&
@@ -184,12 +188,12 @@ const SpeechPractice = ({ email, setEmail }) => {
     handleScoreChange();
   }
 
+  // navgates to empty route to retrigger useEffect to play sound for next flash card
   const handleNextCard = () => {
     navigate("/empty-route");
   };
 
   // const handleTextareaChange = (event) => {
-  //   // Update the transcript when the textarea value changes
   //   resetTranscript(); // Reset the transcript since it's controlled
   // };
 
@@ -215,19 +219,12 @@ const SpeechPractice = ({ email, setEmail }) => {
         </>
       )}
       <br />
-
       <button onClick={handlePlayText}>Play Audio</button>
       <br />
       <br />
       <h2>{result}</h2>
       <br />
-      {/* {hasSpokenGreatJob ? (
-        <button onClick={handleNextCard}>Next Card</button>
-      ) : (
-        <div></div>
-      )} */}
       <button onClick={handleNextCard}>Next Card</button>
-      {/* <button onClick={handleSaveSound}>Save Sound</button> */}
     </div>
   );
 };

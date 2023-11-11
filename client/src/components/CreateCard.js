@@ -15,6 +15,7 @@ function CreateCard() {
     fetchAllSounds();
   }, []);
 
+  // function to fetch created sounds from the database and display them on this web page
   const fetchAllSounds = async () => {
     try {
       const response = await fetch("/created_sounds");
@@ -30,6 +31,7 @@ function CreateCard() {
     }
   };
 
+  // funtion to delete created sounds from the database when the delete button is clicked and display the remaining sounds on this web page
   const handleDelete = async (soundId) => {
     try {
       const response = await fetch(`/sounds/${soundId}`, {
@@ -37,7 +39,7 @@ function CreateCard() {
       });
 
       if (response.ok) {
-        // sound deleted successfully, update the sounds list by refetching
+        // updates the sounds on the web page
         fetchAllSounds();
       } else {
         console.error("Error deleting sound:", response.statusText);
@@ -47,16 +49,18 @@ function CreateCard() {
     }
   };
 
+  // function for displaying the fields to edit when edit button is clicked
   const handleEdit = (sound) => {
-    // Set the selected sound for editing
+    // set the selected sound for editing
     setSelectedSound(sound);
-    // Initialize the updateData with the current sound's data
+    // sets the selected sound data to sent to the database
     setUpdateData({
       sound: sound.sound || "",
       image: sound.image || "",
     });
   };
 
+  // function for sending the updated sounds to the database
   const handleUpdate = (soundId) => {
     fetch(`http://localhost:3000/sounds/${soundId}`, {
       method: "PATCH",
@@ -67,13 +71,15 @@ function CreateCard() {
     })
       .then((response) => {
         if (response.ok) {
-          // sound updated successfully, refresh the sounds list
+          // refreshes the sounds once successfully updated
           fetchAllSounds();
-          setSelectedSound(null); // Clear the selected sound
+          // clear the selected sound
+          setSelectedSound(null);
+          // updates the selected sound text in the form when edit is button is clicked
           setUpdateData({
             sound: updateData.sound,
             image: updateData.image,
-          }); // Clear the update data
+          });
         } else {
           console.error("Error updating sound:", response.statusText);
         }
@@ -81,17 +87,22 @@ function CreateCard() {
       .catch((error) => console.error("Error updating sound:", error));
   };
 
+  // formik form handling for submiting the new sound data for a newly created sound
   const formik = useFormik({
+    // displays blank sound data in form fields
     initialValues: {
       sound: "",
-      image: "", // Add image URL field
+      image: "",
     },
+
+    // handles the new sound  post when submit is button is clicked
     onSubmit: async (values) => {
+      // creates sound object to post
       const newSound = {
         sound: values.sound,
         image: values.image,
       };
-
+      // sends post request to database
       const response = await fetch("/create_card", {
         method: "POST",
         headers: {
@@ -100,6 +111,7 @@ function CreateCard() {
         body: JSON.stringify(newSound),
       });
 
+      // clears form and fetches created sounds to display on screen including the newly created one
       if (response.ok) {
         // eslint-disable-next-line
         const sound = await response.json();
@@ -113,7 +125,7 @@ function CreateCard() {
       }
     },
   });
-  // console.log(sounds)
+
   return (
     <div>
       <form onSubmit={formik.handleSubmit} className="new-sound-form">
@@ -127,7 +139,6 @@ function CreateCard() {
           placeholder="Sound"
         />
 
-        {/* Add input for the image URL */}
         <label htmlFor="email">Image: </label>
         <input
           id="image"

@@ -6,6 +6,7 @@ import Modal from "react-modal";
 import * as yup from "yup";
 import { useFormik } from "formik";
 // https://www.youtube.com/watch?v=2L1FdaIbs5M
+
 Modal.setAppElement("#root");
 
 const Videos = () => {
@@ -27,22 +28,22 @@ const Videos = () => {
   };
 
   const onReady = (event) => {
-    // Player is ready to play
+    // player is ready to play
     setPlayer(event.target);
   };
 
   const onPlay = (event) => {
-    // Video is playing
+    // video is playing
     setIsPlaying(true);
   };
 
   const onPause = (event) => {
-    // Video is paused
+    // video is paused
     setIsPlaying(false);
   };
 
   const openModal = () => {
-    // Pause the video when the modal opens
+    // pauses the video when the modal opens
     if (player) {
       player.pauseVideo();
     }
@@ -56,28 +57,30 @@ const Videos = () => {
       intervalId = setInterval(() => {
         setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
 
-        // Check if elapsed time is a multiple of 30 seconds
+        // check if elapsed time is a multiple of seconds of the current elapsed time
         if (elapsedTime > 0 && elapsedTime % 5 === 0) {
           openModal();
         }
-      }, 1000); // Update elapsed time every second
+      }, 1000); // update elapsed time every second
     } else {
-      clearInterval(intervalId); // Pause the timer
+      clearInterval(intervalId); // pause the timer
     }
 
     return () => {
-      clearInterval(intervalId); // Cleanup: Clear the timer when the component unmounts
+      clearInterval(intervalId); // clear the timer interval
     };
   }, [isPlaying, elapsedTime]);
 
+  // closes modal and continues playing the video
   const closeModal = () => {
     setShowModal(false);
 
-    // Continue playing the video (unpause)
+    // continue playing the video
     if (player) {
       player.playVideo();
     }
   };
+  // form for adding a video URL, but not operational yet
   const formik = useFormik({
     initialValues: {
       videoURL: "",

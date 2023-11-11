@@ -22,12 +22,7 @@ class Sound(db.Model, SerializerMixin):
     sound_scores = db.relationship(
         'Score', cascade='all, delete', backref='Sound')
 
-    # serialize rules
-    # serialize_rules = ('-sound_scores.user_scores',
-    #                    '-sound_scores.sound.sound_scores',)
-    # serialize_rules = ('-',)
     # validations
-
     @validates('sound')
     def validate_sound(self, key, sound):
         if not sound or len(sound) <= 0:
@@ -67,13 +62,11 @@ class User(db.Model, SerializerMixin):
     user_scores = db.relationship(
         'Score', cascade='all, delete', backref='user')
 
-    # serialize rules
-    # serialize_rules = ('-user_scores.sound_scores.user_scores',
-    #                    '-user_scores.sound.sound_scores',)
+    # serialization rules
     serialize_rules = ('-user_scores.sound',
                        '-user_scores.sound.sound_scores',)
-    # validations
 
+    # validations
     @validates('email')
     def validate_email(self, key, email):
         if not email or len(email) <= 0:
@@ -110,9 +103,7 @@ class Score(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     sound_id = db.Column(db.Integer, db.ForeignKey("sounds.id"))
 
-    # serialize rules
-    # serialize_rules = ('-drink.drink_ingredient_associations', '-ingredient.drink_ingredient_associations',)
-    # serialize_rules = ('-user.user_scores', '-sound.sound_scores',)
+    # serialization rules
     serialize_rules = ('-user.user_scores', '-sound.sound_scores',)
 
     # validations

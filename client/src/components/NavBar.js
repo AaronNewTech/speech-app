@@ -3,21 +3,26 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "./UseContext";
 
 function NavBar() {
+  // used to condtionally render the navigation bar
   const { user } = useAuth();
 
   return (
-    <div id="navbar-container" >
+    <div id="navbar-container">
       <nav className="navbarStyles">
         <div className="navbar-links">
           <div>
             <NavLink to="/"> Home </NavLink>
           </div>
-          {user? <div>
-            <NavLink to="/login"> Logout </NavLink>
-          </div> : <div>
-            <NavLink to="/login"> Login </NavLink>
-          </div>}
-          
+          {user ? (
+            <div>
+              <NavLink to="/login"> Logout </NavLink>
+            </div>
+          ) : (
+            <div>
+              <NavLink to="/login"> Login </NavLink>
+            </div>
+          )}
+
           <div>
             <NavLink to="/about"> About </NavLink>
           </div>
@@ -40,7 +45,6 @@ function NavBar() {
             <></>
           )}
 
-          {/* Dropdown menu */}
           <div className="dropdown">
             <NavLink>Speech Practice</NavLink>
             <div>

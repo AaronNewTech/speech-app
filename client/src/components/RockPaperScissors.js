@@ -63,16 +63,17 @@ const RockPaperScissors = () => {
   };
 
   useEffect(() => {
-    // Check if the Points is a multiple of 3 (increases by 3)
+    // check if the points is a multiple of 3 to trigger the modal to open
     if (counter % 3 === 0 && counter > 0) {
-      setIsOpen(true); // Open the modal when the Points increases by 3
+      // open the modal when the Points increases by 3
+      setIsOpen(true);
     }
   }, [counter]);
 
   return (
-    <div  >
-    
-      <section id="rps-body"
+    <div>
+      <section
+        id="rps-body"
         className={`container ${activeOptionIndex !== null ? "start" : ""}`}
       >
         <div className="result_field">

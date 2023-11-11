@@ -8,13 +8,14 @@ function SavedCards() {
     fetchAllSounds();
   }, []);
 
+  // handles fetching all saved cards from the database
   const fetchAllSounds = async () => {
     try {
       const response = await fetch("/user_saved_sounds");
 
       if (response.ok) {
         const allSounds = await response.json();
-        // console.log(allSounds)
+        // sets saved sounds to be displayed
         setSounds(allSounds);
       } else {
         console.error("Error fetching sounds:", response.statusText);
@@ -24,10 +25,9 @@ function SavedCards() {
     }
   };
 
-  console.log();
   return (
     <div id="flash-card-library">
-      <h2 >Flash Card Library</h2>
+      <h2>Flash Card Library</h2>
       <h3 id="practice-message">for extra practice</h3>
       <div className="cards-container">
         {sounds &&

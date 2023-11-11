@@ -6,12 +6,12 @@ function SaveSoundButton({ soundId, email }) {
   const [userSavedSounds, setUserSavedSounds] = useState([]);
   const [isSoundSaved, setIsSoundSaved] = useState(false);
 
-  // Load favorited sounds from localStorage on component mount
+  // 
   useEffect(() => {
     fetchUserSavedSounds();
   }, []);
 
-  // Fetch user's saved sounds
+  // fetch user's saved sounds
   const fetchUserSavedSounds = async () => {
     try {
       const response = await fetch("user_saved_sounds_button");
@@ -25,7 +25,7 @@ function SaveSoundButton({ soundId, email }) {
     }
   };
 
-  // Update isSoundSaved whenever userSavedSounds or soundId changes
+  // updates isSoundSaved whenever userSavedSounds or soundId changes
   useEffect(() => {
     setIsSoundSaved(
       userSavedSounds.some((savedSound) => savedSound.sound_id === soundId)
@@ -35,12 +35,12 @@ function SaveSoundButton({ soundId, email }) {
   const handleFavoriteClick = async () => {
     try {
       if (isSoundSaved) {
-        // If already favorited, send a DELETE request to remove it from favorites on the server
+        // if sound is already favorited, send a DELETE request to remove it from saved sounds in database
         const response = await fetch(`/user_saved_sounds/${soundId}`, {
           method: "DELETE",
         });
         if (response.ok) {
-          // Remove the sound from the user's saved sounds list in local storage
+          // removes the sound from the user's saved sounds list in local storage
           setUserSavedSounds((prevSavedSounds) =>
             prevSavedSounds.filter((savedSound) => savedSound.sound_id !== soundId)
           );
@@ -48,7 +48,7 @@ function SaveSoundButton({ soundId, email }) {
           console.error("Failed to remove sound from favorites on the server");
         }
       } else {
-        // If not favorited, send a POST request to add it to favorites on the server
+        // if sound is not favorited, send a POST request to add it to favorites in the database
         const response = await fetch("/saved_sounds", {
           method: "POST",
           headers: {
@@ -57,7 +57,7 @@ function SaveSoundButton({ soundId, email }) {
           body: JSON.stringify({ email, soundId }),
         });
         if (response.ok) {
-          // Add the sound to the user's saved sounds list in local storage
+          // adds the sound to the user's saved sounds list in local storage so that the sound persists on page reload
           setUserSavedSounds((prevSavedSounds) => [
             ...prevSavedSounds,
             { sound_id: soundId },
@@ -70,7 +70,7 @@ function SaveSoundButton({ soundId, email }) {
       console.error("Error:", error);
     }
   };
-  // console.log(userSavedSounds)
+  
   return (
     <div>
       {user ? (

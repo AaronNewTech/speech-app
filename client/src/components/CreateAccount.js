@@ -6,11 +6,13 @@ function CreateUser({ loggedIn, setLoggedIn }) {
   const [formErrors, setFormErrors] = useState([]);
   const [successMessage, setSuccessMessage] = useState(null);
 
+  // form to create a new user account
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
+    // posts created account to the database
     onSubmit: (values) => {
       fetch("/create_account", {
         method: "POST",
@@ -27,8 +29,7 @@ function CreateUser({ loggedIn, setLoggedIn }) {
           }
         })
         .then((user) => {
-          // Handle the successful response here, if needed
-
+          // creates success message for newly created user
           setSuccessMessage(`User created: ${user}`);
           console.log("User created:", user);
           formik.resetForm();
@@ -60,7 +61,7 @@ function CreateUser({ loggedIn, setLoggedIn }) {
           onChange={formik.handleChange}
           value={formik.values.password}
         />
-        {/* Rest of your form */}
+        
         {formErrors.length > 0 && (
           <p style={{ color: "red" }}>{formErrors.join(", ")}</p>
         )}
@@ -72,6 +73,7 @@ function CreateUser({ loggedIn, setLoggedIn }) {
       <form onSubmit={formik.handleSubmit} className="form"></form>
       <div id="login-link-container">
         <p id="login-link-text">Already have an account?</p>
+        {/* link to login page */}
         <a id="login-link" href="http://localhost:3000/login">
           Login in
         </a>

@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "./UseContext";
 
+// home page component
 function Home() {
   const { user } = useAuth();
   return (
@@ -47,42 +48,10 @@ function Home() {
                   />
                 </NavLink>
               )}
-
             </div>
           </div>
         </div>
       </div>
-
-      {/* <div className="home-page-2">
-        <br />
-        <div >
-          <div >
-            <img
-              id="home-stars-image"
-              src="/images/HomePageImages/Home7.png"
-              alt="speech-trainer-logo"
-            />
-          </div>
-          <div >
-            <img
-              id="home-welcome-image"
-              src="/images/HomePageImages/Home5.png"
-              alt="kids"
-            />
-          </div>
-          <div className="column">
-            <div>
-              <img
-                id="home-wind-image"
-                src="/images/HomePageImages/Home6.png"
-                alt="level-up"
-              />
-              
-
-            </div>
-          </div>
-        </div>
-      </div> */}
 
       <div className="home-page-2">
         <img
