@@ -128,7 +128,7 @@ api.add_resource(Logout, '/logout')
 
 class Sounds(Resource):
     def get(self):
-        sounds = [sound.to_dict() for sound in Sound.query.all()]
+        sounds = [sound.to_dict(only=('sound', 'image', 'id',)) for sound in Sound.query.all()]
         return make_response(sounds, 200)
 
 

@@ -1,9 +1,9 @@
 import React from "react";
 import "./index.css";
 import { createRoot } from "react-dom/client";
-import ReactDOM from "react-dom/client"; // Import ReactDOM from "react-dom"
+// import ReactDOM from "react-dom/client"; // Import ReactDOM from "react-dom"
 import { BrowserRouter } from "react-router-dom";
-import LoginContext from "./components/LoginContext";
+// import UseContext from "./components/UseContext";
 import App from "./components/App";
 
 const container = document.getElementById("root");
