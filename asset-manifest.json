@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/speech-app/static/css/main.9d06a049.css",
+    "main.js": "/speech-app/static/js/main.2befe6ef.js",
+    "index.html": "/speech-app/index.html",
+    "main.9d06a049.css.map": "/speech-app/static/css/main.9d06a049.css.map",
+    "main.2befe6ef.js.map": "/speech-app/static/js/main.2befe6ef.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9d06a049.css",
+    "static/js/main.2befe6ef.js"
+  ]
+}
