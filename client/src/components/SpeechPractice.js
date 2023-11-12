@@ -185,7 +185,7 @@ const SpeechPractice = ({ email, setEmail }) => {
   }
 
   const handleNextCard = () => {
-    navigate("/empty-route");
+    navigate("/speech-app/empty-route");
   };
 
   // const handleTextareaChange = (event) => {

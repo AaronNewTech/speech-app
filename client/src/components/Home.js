@@ -32,7 +32,7 @@ function Home() {
               alt="level-up"
             />
             {user ? (
-              <NavLink to={"/login"}>
+              <NavLink to={"/speech-app/login"}>
                 <img
                   id="logout-image"
                   src={
@@ -43,7 +43,7 @@ function Home() {
                 />
               </NavLink>
             ) : (
-              <NavLink to={"/login"}>
+              <NavLink to={"/speech-app/login"}>
                 <img
                   id="login-image"
                   src={
@@ -87,7 +87,7 @@ function Home() {
         </div>
         <div className="row-3">
           <div className="column-2">
-            <NavLink to="/videos">
+            <NavLink to="/speech-app/videos">
               <img
                 id="video-speech-trainer-logo"
                 src={
@@ -99,7 +99,7 @@ function Home() {
             </NavLink>
           </div>
           <div className="column-2">
-            <NavLink to="/speech-practice">
+            <NavLink to="/speech-app/speech-practice">
               <img
                 id="first-words-logo"
                 src={process.env.PUBLIC_URL + "/images/first-words-logo.png"}
@@ -108,7 +108,7 @@ function Home() {
             </NavLink>
           </div>
           <div className="column-2">
-            <NavLink to="/rock-paper-scissors-game">
+            <NavLink to="/speech-app/rock-paper-scissors-game">
               <img
                 id="games-logo"
                 src={

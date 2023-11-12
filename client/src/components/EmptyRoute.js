@@ -7,7 +7,7 @@ function EmptyRoute() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate("/speech-practice");
+    navigate("/speech-app/speech-practice");
   }, [navigate]);
 
   return (
