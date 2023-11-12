@@ -24,7 +24,7 @@ function App() {
       <UseContext>
         <NavBar />
         <Routes>
-          <Route exact path="https://aaronnewtech.github.io/speech-app/" element={<Home />} />
+          <Route exact path="https://aaronnewtech.github.io/speech-app" element={<Home />} />
           <Route
             exact
             path="https://aaronnewtech.github.io/speech-app/login"
