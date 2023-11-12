@@ -12,7 +12,7 @@ root.render(<App />);
 
 root.render(
   // <React.StrictMode>
-  <BrowserRouter>
+  <BrowserRouter basename="https://aaronnewtech.github.io/speech-app/">
     {/* <LoginProvider> */}
     <App />
     {/* </LoginProvider > */}
