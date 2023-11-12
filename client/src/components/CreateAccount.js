@@ -72,7 +72,7 @@ function CreateUser({ loggedIn, setLoggedIn }) {
       <form onSubmit={formik.handleSubmit} className="form"></form>
       <div id="login-link-container">
         <p id="login-link-text">Already have an account?</p>
-        <a id="login-link" href="http://localhost:3000/login">
+        <a id="login-link" href="https://aaronnewtech.github.io/speech-app/login">
           Login in
         </a>
       </div>

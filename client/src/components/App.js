@@ -24,32 +24,32 @@ function App() {
       <UseContext>
         <NavBar />
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route exact path="https://aaronnewtech.github.io/speech-app/" element={<Home />} />
           <Route
             exact
-            path="/login"
+            path="https://aaronnewtech.github.io/speech-app/login"
             element={<LoginForm email={email} setEmail={setEmail} />}
           />
-          <Route exact path="/about" element={<About />} />
-          <Route exact path="/create-account" element={<CreateUser />} />
-          <Route exact path="/create-card" element={<CreateCard />} />
-          <Route exact path="/videos" element={<Videos />} />
+          <Route exact path="https://aaronnewtech.github.io/speech-app/about" element={<About />} />
+          <Route exact path="https://aaronnewtech.github.io/speech-app/create-account" element={<CreateUser />} />
+          <Route exact path="https://aaronnewtech.github.io/speech-app/create-card" element={<CreateCard />} />
+          <Route exact path="https://aaronnewtech.github.io/speech-app/videos" element={<Videos />} />
           <Route
             exact
-            path="/rock-paper-scissors-game"
+            path="https://aaronnewtech.github.io/speech-app/rock-paper-scissors-game"
             element={<RockPaperScissors />}
           />
 
           {/* <Route exact path="/snake_game" element={<SnakeGame loggedIn={loggedIn} setLoggedIn={setLoggedIn} score={score} setscore={setScore} />} />
         <Route exact path="/tic_tac_toe_game" element={<TicTacToe loggedIn={loggedIn} setLoggedIn={setLoggedIn} score={score} setScore={setscore} />} /> */}
 
-          <Route exact path="/favorite-cards" element={<SavedCards />} />
+          <Route exact path="https://aaronnewtech.github.io/speech-app/favorite-cards" element={<SavedCards />} />
           <Route
             exact
-            path="/speech-practice"
+            path="https://aaronnewtech.github.io/speech-app/speech-practice"
             element={<SpeechPractice email={email} setEmail={setEmail} />}
           />
-          <Route exact path="/empty-route" element={<EmptyRoute />} />
+          <Route exact path="https://aaronnewtech.github.io/speech-app/empty-route" element={<EmptyRoute />} />
         </Routes>
       </UseContext>
     </div>
