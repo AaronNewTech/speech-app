@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/speech-app/static/css/main.9d06a049.css",
-    "main.js": "/speech-app/static/js/main.d25feb78.js",
+    "main.js": "/speech-app/static/js/main.9567bbbe.js",
     "index.html": "/speech-app/index.html",
     "main.9d06a049.css.map": "/speech-app/static/css/main.9d06a049.css.map",
-    "main.d25feb78.js.map": "/speech-app/static/js/main.d25feb78.js.map"
+    "main.9567bbbe.js.map": "/speech-app/static/js/main.9567bbbe.js.map"
   },
   "entrypoints": [
     "static/css/main.9d06a049.css",
-    "static/js/main.d25feb78.js"
+    "static/js/main.9567bbbe.js"
   ]
 }
