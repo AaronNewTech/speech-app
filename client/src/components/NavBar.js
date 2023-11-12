@@ -10,13 +10,13 @@ function NavBar() {
       <nav className="navbarStyles">
         <div className="navbar-links">
           <div>
-            <NavLink to="https://aaronnewtech.github.io/speech-app"> Home </NavLink>
+            <NavLink to="/"> Home </NavLink>
           </div>
           <div>
-            <NavLink to="https://aaronnewtech.github.io/speech-app/login"> Login </NavLink>
+            <NavLink to="/login"> Login </NavLink>
           </div>
           <div>
-            <NavLink to="https://aaronnewtech.github.io/speech-app/about"> About </NavLink>
+            <NavLink to="/about"> About </NavLink>
           </div>
 
           {user ? (
@@ -25,10 +25,10 @@ function NavBar() {
               <div>
                 <div className="dropdown-content">
                   <div>
-                    <NavLink to="https://aaronnewtech.github.io/speech-app/create-card"> Create Cards </NavLink>
+                    <NavLink to="/create-card"> Create Cards </NavLink>
                   </div>
                   <div>
-                    <NavLink to="https://aaronnewtech.github.io/speech-app/favorite-cards"> Saved Cards </NavLink>
+                    <NavLink to="/favorite-cards"> Saved Cards </NavLink>
                   </div>
                 </div>
               </div>
@@ -43,13 +43,13 @@ function NavBar() {
             <div>
               <div className="dropdown-content">
                 <div>
-                  <NavLink to="https://aaronnewtech.github.io/speech-app/videos"> Video Speech Trainer </NavLink>
+                  <NavLink to="/videos"> Video Speech Trainer </NavLink>
                 </div>
                 <div>
-                  <NavLink to="https://aaronnewtech.github.io/speech-app/speech-practice"> First Words </NavLink>
+                  <NavLink to="/speech-practice"> First Words </NavLink>
                 </div>
                 <div>
-                  <NavLink to="https://aaronnewtech.github.io/speech-app/rock-paper-scissors-game">Games</NavLink>
+                  <NavLink to="/rock-paper-scissors-game">Games</NavLink>
                 </div>
               </div>
             </div>
